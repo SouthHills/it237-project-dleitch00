@@ -1,0 +1,14 @@
+Features
+Admin
+- Create, Read, update and delete(archive) data for all plants
+- Can create new employees with or without admin privileges
+- When a plant is closed that planet will be removed from all employees automatically
+
+Employee
+- Read data for only the plant they work in.
+- employees are redirected to the employee dashboard page if they try accessing a restricted page
+
+Both
+- Logging in to the Website (Either Admin or Employee)
+- Passwords are hashed and stored in the database
+- log in attempts will be limited to 5 attempts
