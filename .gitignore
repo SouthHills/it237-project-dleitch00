@@ -1,0 +1,6 @@
+*.idea 
+*.env 
+
+
+# allow only the example env file 
+!example.env
