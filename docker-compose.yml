@@ -1,5 +1,6 @@
 services:
   database:
+    env_file: "webapplication/server/.env"
     image: mysql:8.0
     restart: unless-stopped  
     environment:
