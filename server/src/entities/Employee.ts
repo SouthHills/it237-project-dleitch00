@@ -1,0 +1,43 @@
+import {Column, Entity, PrimaryColumn} from "typeorm";
+
+@Entity("EMPLOYEES")
+export class Employee
+{
+    @PrimaryColumn({name: "EMP_ID", type: "int", nullable: false})
+    employeeID!: number;
+
+    @Column({name: "EMP_JOB_TITLE", type: "varchar", length: 60})
+    employeeJobTitle!: string;
+
+    @Column({name: "EMP_STATUS", type: "varchar", length: 20})
+    employeeStatus!: string;
+
+    @Column({name: "EMP_IS_ADMIN", type: "char", length:1})
+    employeeIsAdmin!: string;
+
+    @Column({name: "EMP_FIRST_NAME", type: "varchar", length:64})
+    employeeFirstName!: string;
+
+    @Column({name: "EMP_MIDDLE_Initial", type: "char", length: 1})
+    employeeMiddleInitial!: string;
+
+    @Column({name: "EMP_LAST_NAME", type: "varchar", length:64})
+    employeeLastName!: string;
+
+    @Column({ name: "EMP_SALARY", type: "decimal", precision: 9, scale: 2})
+    employeeSalary!: number;
+
+    @Column({ name: "EMP_DOB", type: "date"})
+    employeeBirthday!: Date;
+
+    @Column({name: "EMP_USERNAME", type: "varchar", length:30})
+    employeeUsername!: string;
+
+    @Column({name: "EMP_PASSWORD", type: "varchar", length:100})
+    employeePassword!: string;
+
+    @Column({name: "PLANT_ID", type: "int"})
+    plantID!: number;
+
+}
+
