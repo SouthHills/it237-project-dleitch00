@@ -1,5 +1,5 @@
 import {loadEnvFile} from 'node:process';
-loadEnvFile('server/.env');
+loadEnvFile('./server/.env');
 import {DataSource} from "typeorm";
 import {Component} from "./entities/Component";
 import {Employee} from "./entities/Employee";
