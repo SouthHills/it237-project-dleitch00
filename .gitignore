@@ -1,5 +1,7 @@
+#stop files ending in these from being uploaded
 *.idea 
 *.env 
+*.sql
 
 
 # allow only the example env file 
