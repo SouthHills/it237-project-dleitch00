@@ -1,9 +1,11 @@
-import {Column, Entity, PrimaryColumn} from "typeorm";
+import {Column, Entity, JoinColumn, ManyToOne, OneToMany, PrimaryColumn, PrimaryGeneratedColumn} from "typeorm";
+import {Vendor} from "./Vendor.js";
+import {Blueprint} from "./Blueprint.js";
 
 @Entity("COMPONENTS")
 export class Component
 {
-    @PrimaryColumn({name: "COMP_ID", type: "int", nullable: false})
+    @PrimaryGeneratedColumn({name: "COMP_ID", type: "int"})
     componentID!: number;
 
     @Column({name: "COMP_NAME", type: "varchar", length: 255})
@@ -17,5 +19,17 @@ export class Component
 
     @Column({ name: "COMP_COST", type: "decimal", precision: 8, scale: 2})
     componentPrice!: number;
+
+    @Column({ name: "VEND_ID", type: "int"})
+    vendorID!: number;
+
+    @ManyToOne(() => Vendor, vendor => vendor.components)
+        @JoinColumn({ name: "VEND_ID", referencedColumnName: "vendorID" })
+    vendor!: Vendor;
+
+    @OneToMany(() => Blueprint, blueprint => blueprint.componentID)
+    blueprints!: Blueprint[];
+
+
 
 }

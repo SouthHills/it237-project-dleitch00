@@ -1,6 +1,6 @@
 import {Router} from "express";
 import {AppDataSource} from "../data-source.js";
-import {Plant} from "../entities/Plant";
+import {Plant} from "../entities/Plant.js";
 
 
 const router = Router();
@@ -64,7 +64,8 @@ router.post('/plants', async (req, res) =>
         'plantNation',
         'plantStreet',
         'plantName',
-        'plantStatus'
+        'plantStatus',
+        'plantCity'
     ];
 
     if (requiredFields.some(field => plantData[field] == undefined || plantData[field] === null))

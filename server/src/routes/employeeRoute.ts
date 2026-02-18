@@ -1,6 +1,6 @@
 import {Router} from "express";
 import {AppDataSource} from "../data-source.js";
-import {Employee} from "../entities/Employee";
+import {Employee} from "../entities/Employee.js";
 
 
 const router = Router();

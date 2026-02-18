@@ -1,6 +1,6 @@
 import {Router} from "express";
 import {AppDataSource} from "../data-source.js";
-import {Component} from "../entities/Component";
+import {Component} from "../entities/Component.js";
 
 
 const router = Router();
@@ -9,12 +9,23 @@ router.get('/components', async(req, res) =>
 {
     const components = await AppDataSource.getRepository(Component).find();
 
-    res.json(components);
+    const responseData = components.map(component => ({
+        componentID: component.componentID,
+        componentName: component.componentName,
+        componentDescription: component.componentDescription,
+        componentMinimumQuantity: component.componentMinimumQuantity,
+        componentPrice: component.componentPrice,
+        vendorID: component.vendorID,
+        vendorName: component.vendor ? component.vendor.vendorName : null
+    }));
+
+    res.json(responseData);
 });
 
 router.get('/components/:id', async(req, res) =>
 {
     const id : number = parseInt(req.params.id);
+    console.log(req.params.id);
     console.log(id);
     const component = await AppDataSource
         .getRepository(Component)

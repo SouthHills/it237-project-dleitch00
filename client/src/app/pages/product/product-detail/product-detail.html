@@ -1,0 +1,90 @@
+
+<main class="container">
+  @if (product() || isNewProduct())
+  {
+    @if (isNewProduct())
+    {
+      <h1 class="mb-4">New Product</h1>
+    }
+    @else
+    {
+      <h1 class="mb-4">
+        Product Details: {{ product()!.productName }}
+      </h1>
+    }
+
+    <form class="row gap-3">
+      <div class="col-4">
+        <label for="product-id" class="form-label">Product ID</label>
+        <input class="form-control" id="product-id"
+               name="productID"
+               [(ngModel)]="modifiedProduct()!.productID"/>
+      </div>
+
+      <div class="col-3">
+        <label for="product-name" class="form-label">Product Name</label>
+        <input class="form-control" id="product-indate"
+               name="name"
+               [(ngModel)]="modifiedProduct()!.productName"/>
+      </div>
+
+      <div class="col-8">
+        <label for="product-description" class="form-label">Product Description</label>
+        <input class="form-control" id="product-description"
+               name="description"
+               [(ngModel)]="modifiedProduct()!.productDescription"/>
+      </div>
+
+      <div class="col-3">
+        <label for="product-price" class="form-label">Price</label>
+        <input class="form-control" id="product-price"
+               name="price" type="number" step=".01" min="0"
+               [(ngModel)]="modifiedProduct()!.productPrice"/>
+      </div>
+
+      <hr class="my-4"/>
+      <h3 class="text-body">Actions</h3>
+      <div>
+        <button type="button"
+                class="btn btn-success m-2"
+                (click)="saveChanges()">{{ isNewProduct() ? 'Create Product' : 'Save Changes' }}</button>
+
+        @if(!isNewProduct())
+        {
+          <button type="button"
+                  class="btn btn-danger m-2"
+                  (click)="deleteProduct()">
+            Delete Product
+          </button>
+        }
+
+        <button type="button" class="btn btn-warning m-2" (click)="discardChanges()">Discard Changes</button>
+
+        <a routerLink="/products" class="btn btn-secondary m2">
+          Go Back
+        </a>
+      </div>
+    </form>
+  }
+  @else if (errorMessage())
+  {
+    <p class="text-danger">{{ errorMessage() }}</p>
+  }
+  @else
+  {
+    <p>Loading product details</p>
+  }
+
+</main>
+
+<div class="toast-container position-fixed bottom-0 end-0 p-3">
+  <div id="toast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+    <div class="toast-header">
+      <strong class="me-auto">{{ toastTitle() }}</strong>
+      <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+    </div>
+    <div class="toast-body">
+      {{ toastMessage() }}
+    </div>
+  </div>
+</div>

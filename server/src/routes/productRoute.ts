@@ -1,30 +1,47 @@
 import {Router} from "express";
 import {AppDataSource} from "../data-source.js";
-import {Product} from "../entities/Product";
-
+import {Product} from "../entities/Product.js";
+import {IProduct} from "../shared/IProduct.js";
+import {ProductionLine} from "../entities/ProductionLine.js";
 
 const router = Router();
 
+// Get all products
 router.get('/products', async(req, res) =>
 {
     const products = await AppDataSource.getRepository(Product).find();
 
-    res.json(products);
+    const responseData: IProduct[] = products.map(product => ({
+        productID: product.productID,
+        productName: product.productName,
+        productDescription: product.productDescription,
+        productPrice: product.productPrice
+    }));
+
+    res.json(responseData);
 });
 
 router.get('/products/:id', async(req, res) =>
 {
     const id : number = parseInt(req.params.id);
     console.log(id);
-    const product = await AppDataSource
+    const product : Product | null = await AppDataSource
         .getRepository(Product)
         .findOneBy({
             productID: id
         });
 
-    if (!product) res.json({ message: `Product with ID ${id} not found.`})
+    if (!product) return res.json({ message: `Product with ID ${id} not found.`})
 
-    else res.json(product);
+    const responseData: IProduct = {
+        productID: product?.productID!,
+        productName: product?.productName!,
+        productDescription: product?.productDescription!,
+        productPrice: product?.productPrice!
+
+    }
+
+    res.json(responseData);
 });
 
 router.put('/products/:id', async(req, res) =>
@@ -44,7 +61,8 @@ router.put('/products/:id', async(req, res) =>
     try
     {
         const updatedProduct = await productRepository.save(existingProduct);
-        res.json(updatedProduct);
+        const responseData: IProduct = updatedProduct;
+        res.json(responseData);
     }
     catch (error)
     {
@@ -74,11 +92,12 @@ router.post('/products', async (req, res) =>
 
     try
     {
-        const newProduct = productRepository.create(productData);
+        const newProduct = productRepository.create(productData as Product);
 
         const savedProduct = await productRepository.save(newProduct);
+        const responseData: IProduct = savedProduct;
 
-        res.status(201).json(savedProduct);
+        res.status(201).json(responseData);
     }
     catch (error)
     {
@@ -94,6 +113,7 @@ router.delete('/products/:id', async (req, res) =>
     const productRepository = AppDataSource.getRepository(Product);
 
     const product = await productRepository.findOneBy({productID: id});
+
 
     if (!product)
     {

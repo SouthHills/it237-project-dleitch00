@@ -1,0 +1,45 @@
+import { Injectable } from '@angular/core';
+import {HttpClient} from '@angular/common/http';
+import {Observable} from 'rxjs';
+import {VendorModel} from '../models/vendor.model';
+
+@Injectable({
+  providedIn: 'root',
+})
+export class VendorService {
+  private apiUrl = 'http://localhost:3000/vendors';
+
+
+  constructor(private http: HttpClient) {}
+
+  getVendors(): Observable<VendorModel[]> {
+    return this.http.get<VendorModel[]>(this.apiUrl);
+  }
+
+  getVendorById(vendorID : string) : Observable<VendorModel> {
+    const escapedVendorID = encodeURIComponent(vendorID);
+
+    return this.http.get<VendorModel>(`${this.apiUrl}/${escapedVendorID}`)
+  }
+
+  addVendor(vendor: VendorModel): Observable<VendorModel> {
+    return this.http.post<VendorModel>(this.apiUrl, vendor)
+  }
+
+  updateVendor(vendor: VendorModel) : Observable<VendorModel>
+  {
+    const escapedVendorID = encodeURIComponent(vendor.vendorID);
+
+    return this.http.put<VendorModel>(`${this.apiUrl}/${escapedVendorID}`, vendor);
+  }
+
+  deleteVendor(vendorID: string) : Observable<void>
+  {
+    const escapedVendorID = encodeURIComponent(vendorID);
+
+    return this.http.delete<void>(`${this.apiUrl}/${escapedVendorID}`);
+  }
+
+
+
+}

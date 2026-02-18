@@ -1,9 +1,11 @@
-import {Column, Entity, PrimaryColumn} from "typeorm";
+import {Column, Entity, OneToMany, PrimaryColumn, PrimaryGeneratedColumn} from "typeorm";
+import {Employee} from "./Employee.js";
+import {ProductionLine} from "./ProductionLine.js";
 
 @Entity("PLANT")
 export class Plant
 {
-    @PrimaryColumn({name: "PLANT_ID", type: "int", nullable: false})
+    @PrimaryGeneratedColumn({name: "PLANT_ID", type: "int"})
     plantID!: number;
 
     @Column({name: "PLANT_ZIP", type: "char", length: 5})
@@ -20,4 +22,14 @@ export class Plant
 
     @Column({name: "PLANT_STATUS", type: "char", length: 1})
     plantStatus!: string;
+
+    @Column({name: "PLANT_CITY", type: "varchar"})
+    plantCity!: string;
+
+
+    @OneToMany(() => Employee, employee => employee.plantID)
+    employees!: Employee[];
+
+    @OneToMany(() => ProductionLine, productionLine => productionLine.plantID)
+    productionLines!: ProductionLine[];
 }

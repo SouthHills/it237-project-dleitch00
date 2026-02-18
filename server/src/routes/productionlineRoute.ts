@@ -1,6 +1,6 @@
 import {Router} from "express";
 import {AppDataSource} from "../data-source.js";
-import {ProductionLine} from "../entities/ProductionLine";
+import {ProductionLine} from "../entities/ProductionLine.js";
 
 
 const router = Router();

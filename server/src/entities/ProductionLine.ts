@@ -1,4 +1,7 @@
-import {Column, Entity, PrimaryColumn} from "typeorm";
+import {Column, Entity, JoinColumn, ManyToOne, PrimaryColumn} from "typeorm";
+import {Plant} from "./Plant.js";
+import {Product} from "./Product.js";
+
 
 @Entity("PRODUCTION_LINE")
 export class ProductionLine
@@ -14,5 +17,17 @@ export class ProductionLine
 
     @Column({name: "PROD_MIN", type: "int"})
     productMinimum!: number;
+
+    //Many to One
+    @ManyToOne(() => Plant, (plant) => plant.productionLines)
+        @JoinColumn({name: "PLANT_ID", referencedColumnName: "plantID"})
+    plant!: Plant;
+
+    @ManyToOne(() => Product, (product) => product.productionLines)
+        @JoinColumn({name: "PROD_ID", referencedColumnName: "productID"})
+    product!: Product;
+
+
+
 
 }

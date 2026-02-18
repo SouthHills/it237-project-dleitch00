@@ -1,9 +1,10 @@
-import {Column, Entity, PrimaryColumn} from "typeorm";
+import {Column, Entity, JoinColumn, ManyToOne, PrimaryColumn, PrimaryGeneratedColumn} from "typeorm";
+import {Plant} from "./Plant.js";
 
 @Entity("EMPLOYEES")
 export class Employee
 {
-    @PrimaryColumn({name: "EMP_ID", type: "int", nullable: false})
+    @PrimaryGeneratedColumn({name: "EMP_ID", type: "int"})
     employeeID!: number;
 
     @Column({name: "EMP_JOB_TITLE", type: "varchar", length: 60})
@@ -18,7 +19,7 @@ export class Employee
     @Column({name: "EMP_FIRST_NAME", type: "varchar", length:64})
     employeeFirstName!: string;
 
-    @Column({name: "EMP_MIDDLE_Initial", type: "char", length: 1})
+    @Column({name: "EMP_MIDDLE_INITIAL", type: "char", length: 1})
     employeeMiddleInitial!: string;
 
     @Column({name: "EMP_LAST_NAME", type: "varchar", length:64})
@@ -36,8 +37,12 @@ export class Employee
     @Column({name: "EMP_PASSWORD", type: "varchar", length:100})
     employeePassword!: string;
 
-    @Column({name: "PLANT_ID", type: "int"})
-    plantID!: number;
+    @Column({name: "PLANT_ID", type: "int", nullable: true})
+    plantID!: number | null;
+
+    @ManyToOne(() => Plant, plant => plant.employees)
+        @JoinColumn({name: "PLANT_ID", referencedColumnName: "plantID"})
+    plant!: Plant;
 
 }
 

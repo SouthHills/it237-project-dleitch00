@@ -1,9 +1,10 @@
-import {Column, Entity, PrimaryColumn} from "typeorm";
+import {Column, Entity, OneToMany, PrimaryColumn, PrimaryGeneratedColumn} from "typeorm";
+import {Component} from "./Component.js";
 
 @Entity("VENDOR")
 export class Vendor
 {
-    @PrimaryColumn({name: "VEND_ID", type: "int", nullable: false})
+    @PrimaryGeneratedColumn({name: "VEND_ID", type: "int"})
     vendorID!: number;
 
     @Column({name: "VEND_NAME", type: "varchar", length: 100})
@@ -20,6 +21,12 @@ export class Vendor
 
     @Column({name: "VEND_HQ_STREET", type: "varchar", length: 100})
     vendorHqStreet!: string;
+
+    @Column({name: "VEND_HQ_CITY", type: "varchar"})
+    vendorHqCity!: string;
+
+    @OneToMany(() => Component, component => component.vendorID)
+    components!: Component[];
 
 }
 

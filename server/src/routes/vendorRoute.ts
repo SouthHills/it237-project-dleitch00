@@ -1,6 +1,6 @@
 import {Router} from "express";
 import {AppDataSource} from "../data-source.js";
-import {Vendor} from "../entities/Vendor";
+import {Vendor} from "../entities/Vendor.js";
 
 
 const router = Router();
@@ -64,7 +64,8 @@ router.post('/vendors', async (req, res) =>
         'vendorSpecialization',
         'vendorHqZIP',
         'vendorHqNation',
-        'vendorHqStreet'
+        'vendorHqStreet',
+        'vendorHqCity',
     ];
 
     if (requiredFields.some(field => vendorData[field] == undefined || vendorData[field] === null))

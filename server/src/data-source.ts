@@ -1,24 +1,25 @@
 import {loadEnvFile} from 'node:process';
-loadEnvFile('./server/.env');
+//loadEnvFile('./server/.env');
 import {DataSource} from "typeorm";
-import {Component} from "./entities/Component";
-import {Employee} from "./entities/Employee";
-import {Plant} from "./entities/Plant";
-import {Product} from "./entities/Product";
-import {Vendor} from "./entities/Vendor";
-import {ProductionLine} from "./entities/ProductionLine";
-import {Blueprint} from "./entities/Blueprint";
+import {Component} from "./entities/Component.js";
+import {Employee} from "./entities/Employee.js";
+import {Plant} from "./entities/Plant.js";
+import {Product} from "./entities/Product.js";
+import {Vendor} from "./entities/Vendor.js";
+import {ProductionLine} from "./entities/ProductionLine.js";
+import {Blueprint} from "./entities/Blueprint.js";
 
 export const AppDataSource = new DataSource({
-    type: "mysql",
-    host: "127.0.0.1", //127.0.0.1
-    port: 3306,
-    username: process.env.DB_USER,
-    password: process.env.DB_PASSWORD,
-    database: process.env.DB_NAME,
-    synchronize: true, // set to false in production
+    type: "mssql",
+    host: "cloud-devops-fnl.database.windows.net", //127.0.0.1
+    port: 1433,
+    username: 'master',
+    password: 'AdminPwd123!!',
+    database: 'company',
+    synchronize: false, // set to false in production
     logging: true,
     entities: [Component, Employee, Plant, Product, Vendor, ProductionLine, Blueprint],
     subscribers: [],
     migrations: []
 });
+
