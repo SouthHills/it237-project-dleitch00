@@ -16,7 +16,7 @@ export class ComponentService {
     return this.http.get<ComponentModel[]>(this.apiUrl);
   }
 
-  getComponentById(componentID : string) : Observable<ComponentModel> {
+  getComponentById(componentID: number) : Observable<ComponentModel> {
     const escapedComponentID = encodeURIComponent(componentID);
 
     return this.http.get<ComponentModel>(`${this.apiUrl}/${escapedComponentID}`)
@@ -33,7 +33,7 @@ export class ComponentService {
     return this.http.put<ComponentModel>(`${this.apiUrl}/${escapedComponentID}`, component);
   }
 
-  deleteComponent(componentID: string) : Observable<void>
+  deleteComponent(componentID: number) : Observable<void>
   {
     const escapedComponentID = encodeURIComponent(componentID);
 

@@ -13,12 +13,12 @@ export class PlantService {
 
   constructor(private http: HttpClient) {}
 
-  getPlants(): Observable<PlantModel>
+  getPlants(): Observable<PlantModel[]>
   {
-    return this.http.get<PlantModel>(this.apiUrl);
+    return this.http.get<PlantModel[]>(this.apiUrl);
   }
 
-  getPlantById(plantID : string) : Observable<PlantModel> {
+  getPlantById(plantID: number) : Observable<PlantModel> {
     const escapedPlantID = encodeURIComponent(plantID);
 
     return this.http.get<PlantModel>(`${this.apiUrl}/${escapedPlantID}`)
@@ -35,7 +35,7 @@ export class PlantService {
     return this.http.put<PlantModel>(`${this.apiUrl}/${escapedPlantID}`, plant);
   }
 
-  deletePlant(plantID: string) : Observable<void>
+  deletePlant(plantID: number) : Observable<void>
   {
     const escapedPlantID = encodeURIComponent(plantID);
 

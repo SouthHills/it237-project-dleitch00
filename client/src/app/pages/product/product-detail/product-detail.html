@@ -35,6 +35,13 @@
                [(ngModel)]="modifiedProduct()!.productDescription"/>
       </div>
 
+      <div class="col-8">
+        <label for="product-produced" class="form-label">Product Produced</label>
+        <input class="form-control" id="product-description"
+               name="produced"
+               [(ngModel)]="modifiedProduct()!.productProduced"/>
+      </div>
+
       <div class="col-3">
         <label for="product-price" class="form-label">Price</label>
         <input class="form-control" id="product-price"

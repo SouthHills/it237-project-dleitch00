@@ -20,7 +20,7 @@ export class EmployeeService
     return this.http.get<EmployeeModel[]>(this.apiUrl);
   }
 
-  getEmployeeById(employeeID: string): Observable<EmployeeModel>
+    getEmployeeById(employeeID: number): Observable<EmployeeModel>
   {
     const escapedEmployeeID = encodeURIComponent(employeeID);
     return this.http.get<EmployeeModel>(`${this.apiUrl}/${escapedEmployeeID}`);
@@ -37,7 +37,7 @@ export class EmployeeService
     return this.http.put<EmployeeModel>(`${this.apiUrl}/${escapedEmployeeID}`, employee);
   }
 
-  deleteEmployee(employeeID: string): Observable<EmployeeModel>
+  deleteEmployee(employeeID: number): Observable<EmployeeModel>
   {
     const escapedEmployeeID = encodeURIComponent(employeeID);
     return this.http.delete<EmployeeModel>(`${this.apiUrl}/${escapedEmployeeID}`);

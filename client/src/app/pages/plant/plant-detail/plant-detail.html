@@ -1,1 +1,111 @@
-<p>plant-detail works!</p>
+
+<main class="container">
+  @if (plant() || isNewPlant())
+  {
+    @if (isNewPlant())
+    {
+      <h1 class="mb-4">New Plant</h1>
+    }
+    @else
+    {
+      <h1 class="mb-4">
+        Plant Details: {{ plant()!.plantName }}
+      </h1>
+    }
+
+    <form class="row gap-3">
+      <div class="col-4">
+        <label for="plant-id" class="form-label">Plant ID</label>
+        <input class="form-control" id="plant-id"
+               name="plantID"
+               [(ngModel)]="modifiedPlant()!.plantID"/>
+      </div>
+
+      <div class="col-3">
+        <label for="plant-name" class="form-label">Name</label>
+        <input class="form-control" id="plant-name"
+               name="name"
+               [(ngModel)]="modifiedPlant()!.plantName"/>
+      </div>
+
+      <div class="col-8">
+        <label for="plant-nation" class="form-label">Nation</label>
+        <input class="form-control" id="plant-nation"
+               name="nation"
+               [(ngModel)]="modifiedPlant()!.plantNation"/>
+      </div>
+
+      <div class="col-8">
+        <label for="plant-city" class="form-label">City</label>
+        <input class="form-control" id="plant-city"
+               name="city"
+               [(ngModel)]="modifiedPlant()!.plantCity"/>
+      </div>
+
+      <div class="col-3">
+        <label for="plant-street" class="form-label">Street</label>
+        <input class="form-control" id="plant-street"
+               name="street"
+               [(ngModel)]="modifiedPlant()!.plantStreet"/>
+      </div>
+
+      <div class="col-3">
+        <label for="plant-zip" class="form-label">Zip Code</label>
+        <input class="form-control" id="plant-zip"
+               name="zip"
+               [(ngModel)]="modifiedPlant()!.plantZIP"/>
+      </div>
+
+      <div class="col-3">
+        <label for="plant-status" class="form-label">Status</label>
+        <input class="form-control" id="plant-status"
+               name="status"
+               [(ngModel)]="modifiedPlant()!.plantStatus"/>
+      </div>
+
+      <hr class="my-4"/>
+      <h3 class="text-body">Actions</h3>
+      <div>
+        <button type="button"
+                class="btn btn-success m-2"
+                (click)="saveChanges()">{{ isNewPlant() ? 'Create Plant' : 'Save Changes' }}</button>
+
+        @if(!isNewPlant())
+        {
+          <button type="button"
+                  class="btn btn-danger m-2"
+                  (click)="deletePlant()">
+            Delete Plant
+          </button>
+        }
+
+        <button type="button" class="btn btn-warning m-2" (click)="discardChanges()">Discard Changes</button>
+
+        <a routerLink="/plants" class="btn btn-secondary m2">
+          Go Back
+        </a>
+      </div>
+    </form>
+  }
+  @else if (errorMessage())
+  {
+    <p class="text-danger">{{ errorMessage() }}</p>
+  }
+  @else
+  {
+    <p>Loading plant details</p>
+  }
+
+</main>
+
+<div class="toast-container position-fixed bottom-0 end-0 p-3">
+  <div id="toast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+    <div class="toast-header">
+      <strong class="me-auto">{{ toastTitle() }}</strong>
+      <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+    </div>
+    <div class="toast-body">
+      {{ toastMessage() }}
+    </div>
+  </div>
+</div>

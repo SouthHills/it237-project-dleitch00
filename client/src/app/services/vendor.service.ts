@@ -16,7 +16,7 @@ export class VendorService {
     return this.http.get<VendorModel[]>(this.apiUrl);
   }
 
-  getVendorById(vendorID : string) : Observable<VendorModel> {
+  getVendorById(vendorID: number) : Observable<VendorModel> {
     const escapedVendorID = encodeURIComponent(vendorID);
 
     return this.http.get<VendorModel>(`${this.apiUrl}/${escapedVendorID}`)
@@ -33,7 +33,7 @@ export class VendorService {
     return this.http.put<VendorModel>(`${this.apiUrl}/${escapedVendorID}`, vendor);
   }
 
-  deleteVendor(vendorID: string) : Observable<void>
+  deleteVendor(vendorID: number) : Observable<void>
   {
     const escapedVendorID = encodeURIComponent(vendorID);
 

@@ -6,4 +6,5 @@ export interface ComponentModel
     componentDescription: string;
     componentMinimumQuantity: number;
     componentPrice: number;
+    vendorID: number;
 }

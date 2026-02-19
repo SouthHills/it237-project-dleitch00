@@ -4,12 +4,13 @@ import {ActivatedRoute, Router, RouterLink} from '@angular/router';
 import {ProductService} from '../../../services/product.service';
 import {Toast} from 'bootstrap';
 import {FormsModule} from '@angular/forms';
+import {CurrencyPipe} from '@angular/common';
 
 @Component({
   selector: 'app-product-detail',
   imports: [
     FormsModule,
-    RouterLink
+    RouterLink,
   ],
   templateUrl: './product-detail.html',
   styleUrl: './product-detail.css',
@@ -34,12 +35,12 @@ export class ProductDetail {
     private router: Router
   )
   {                       // snapshot of the route when requesting the object
-    this.productID.set(this.route.snapshot.paramMap.get('productID'));
+    this.productID.set(this.route.snapshot.paramMap.get('id'));
 
     effect(() =>
     {
       const id = this.productID();
-      if (!id)
+      if (id === '-1')
       {
         this.isNewProduct.set(true);
         this.product.set(null);
@@ -79,7 +80,8 @@ export class ProductDetail {
         !currentProduct.productDescription ||
         currentProduct.productPrice === undefined ||
         currentProduct.productPrice === null ||
-        !currentProduct.productName
+        !currentProduct.productName ||
+        !currentProduct.productProduced
       )
       {
         this.errorMessage.set('Values are required for all attributes except Vendor Code(V_CODE)');
@@ -88,6 +90,8 @@ export class ProductDetail {
         this.showToast();
         return;
       }
+
+      console.log(currentProduct);
 
       this.productService.addProduct(currentProduct).subscribe({
         next: (newProduct) =>

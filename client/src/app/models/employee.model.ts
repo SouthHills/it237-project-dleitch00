@@ -11,4 +11,5 @@ export interface EmployeeModel
   employeeBirthday: Date;
   employeeUsername: string;
   plantID: number;
+  employeePassword: string;
 }

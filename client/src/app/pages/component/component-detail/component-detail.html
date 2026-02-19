@@ -1,1 +1,104 @@
-<p>component-detail works!</p>
+
+<main class="container">
+  @if (component() || isNewComponent())
+  {
+    @if (isNewComponent())
+    {
+      <h1 class="mb-4">New Component</h1>
+    }
+    @else
+    {
+      <h1 class="mb-4">
+        Component Details: {{ component()!.componentName }}
+      </h1>
+    }
+
+    <form class="row gap-3">
+      <div class="col-4">
+        <label for="component-id" class="form-label">Component ID</label>
+        <input class="form-control" id="component-id"
+               name="componentID"
+               [(ngModel)]="modifiedComponent()!.componentID"/>
+      </div>
+
+      <div class="col-3">
+        <label for="component-name" class="form-label">Component Name</label>
+        <input class="form-control" id="component-indate"
+               name="name"
+               [(ngModel)]="modifiedComponent()!.componentName"/>
+      </div>
+
+      <div class="col-8">
+        <label for="component-description" class="form-label">Component Description</label>
+        <input class="form-control" id="component-description"
+               name="description"
+               [(ngModel)]="modifiedComponent()!.componentDescription"/>
+      </div>
+
+      <div class="col-3">
+        <label for="component-price" class="form-label">Price</label>
+        <input class="form-control" id="component-price"
+               name="price" type="number" step=".01" min="0"
+               [(ngModel)]="modifiedComponent()!.componentPrice"/>
+      </div>
+
+      <div class="col-3">
+        <label for="component-minimum" class="form-label">Minimum</label>
+        <input class="form-control" id="component-minimum"
+               name="minimum" type="number"
+               [(ngModel)]="modifiedComponent()!.componentMinimumQuantity"/>
+      </div>
+
+      <div class="col-3">
+        <label for="vendor-id" class="form-label">Vendor ID</label>
+        <input class="form-control" id="vendor-id"
+               name="vendor-id" type="number"
+               [(ngModel)]="modifiedComponent()!.vendorID"/>
+      </div>
+
+      <hr class="my-4"/>
+      <h3 class="text-body">Actions</h3>
+      <div>
+        <button type="button"
+                class="btn btn-success m-2"
+                (click)="saveChanges()">{{ isNewComponent() ? 'Create Component' : 'Save Changes' }}</button>
+
+        @if(!isNewComponent())
+        {
+          <button type="button"
+                  class="btn btn-danger m-2"
+                  (click)="deleteComponent()">
+            Delete Component
+          </button>
+        }
+
+        <button type="button" class="btn btn-warning m-2" (click)="discardChanges()">Discard Changes</button>
+
+        <a routerLink="/components" class="btn btn-secondary m2">
+          Go Back
+        </a>
+      </div>
+    </form>
+  }
+  @else if (errorMessage())
+  {
+    <p class="text-danger">{{ errorMessage() }}</p>
+  }
+  @else
+  {
+    <p>Loading component details</p>
+  }
+
+</main>
+
+<div class="toast-container position-fixed bottom-0 end-0 p-3">
+  <div id="toast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+    <div class="toast-header">
+      <strong class="me-auto">{{ toastTitle() }}</strong>
+      <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+    </div>
+    <div class="toast-body">
+      {{ toastMessage() }}
+    </div>
+  </div>
+</div>

@@ -15,7 +15,8 @@ router.get('/products', async(req, res) =>
         productID: product.productID,
         productName: product.productName,
         productDescription: product.productDescription,
-        productPrice: product.productPrice
+        productPrice: product.productPrice,
+        productProduced: product.productProduced
     }));
 
     res.json(responseData);
@@ -37,7 +38,8 @@ router.get('/products/:id', async(req, res) =>
         productID: product?.productID!,
         productName: product?.productName!,
         productDescription: product?.productDescription!,
-        productPrice: product?.productPrice!
+        productPrice: product?.productPrice!,
+        productProduced: product?.productProduced!
 
     }
 
@@ -80,7 +82,8 @@ router.post('/products', async (req, res) =>
         'productID',
         'productName',
         'productDescription',
-        'productPrice'
+        'productPrice',
+        'productProduced'
     ];
 
     if (requiredFields.some(field => productData[field] == undefined || productData[field] === null))

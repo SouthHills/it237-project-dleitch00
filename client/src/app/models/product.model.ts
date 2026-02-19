@@ -6,4 +6,5 @@ export interface ProductModel
   productName: string;
   productDescription: string;
   productPrice: number;
+  productProduced: string;
 }

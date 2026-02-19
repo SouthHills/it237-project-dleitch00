@@ -17,6 +17,9 @@ export class Product
     @Column({name: "PROD_PRICE", type: "decimal", precision: 8, scale: 2})
     productPrice!: number;
 
+    @Column({name: "PROD_PRODUCED", type: "char", length: 1})
+    productProduced!: string;
+
 
     @OneToMany(() => ProductionLine, productionLine => productionLine.productID)
     productionLines!: ProductionLine[];
