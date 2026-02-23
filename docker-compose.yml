@@ -1,0 +1,40 @@
+services:
+  database:
+    env_file:
+      - server/.env
+    image: mysql:8.0
+    restart: unless-stopped
+    ports:
+      - "3306:3306"
+    volumes:
+      - database_volume:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+      start_period: 15s
+
+  server:
+    build: server-dockerfile
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+    depends_on:
+      database:
+        condition: service_healthy
+    env_file:
+      - server/.env
+    environment:
+      DB_HOST: database
+      DB_PORT: 3306
+
+  client:
+    build: client-dockerfile
+    restart: unless-stopped
+    ports:
+      - "8080:8080"
+
+volumes:
+  database_volume:
+
