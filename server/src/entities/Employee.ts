@@ -10,7 +10,7 @@ export class Employee
     @Column({name: "EMP_JOB_TITLE", type: "varchar", length: 60})
     employeeJobTitle!: string;
 
-    @Column({name: "EMP_STATUS", type: "varchar", length: 20})
+    @Column({name: "EMP_IS_ACTIVE", type: "char", length: 1})
     employeeStatus!: string;
 
     @Column({name: "EMP_IS_ADMIN", type: "char", length:1})

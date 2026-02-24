@@ -9,7 +9,6 @@ import {ComponentModel} from '../models/component.model';
 export class ComponentService {
   private apiUrl = 'http://localhost:3000/components';
 
-
   constructor(private http: HttpClient) {}
 
   getComponents(): Observable<ComponentModel[]> {
