@@ -13,77 +13,89 @@
       </h1>
     }
 
-    <form class="row gap-3">
-      <div class="col-4">
-        <label for="plant-id" class="form-label">Plant ID</label>
-        <input class="form-control" id="plant-id"
-               name="plantID"
-               [(ngModel)]="modifiedPlant()!.plantID"/>
-      </div>
+    <form class="row">
+      <div class="card">
+        <div class="card-header">
+          <div class="row">
+            <div class="col">
 
-      <div class="col-3">
-        <label for="plant-name" class="form-label">Name</label>
-        <input class="form-control" id="plant-name"
-               name="name"
-               [(ngModel)]="modifiedPlant()!.plantName"/>
-      </div>
+              <div class="col-4">
+                <label for="plant-id" class="card-title">Plant ID</label>
+                <input class="form-control" id="plant-id"
+                       name="plantID"
+                       [(ngModel)]="modifiedPlant()!.plantID"/>
+              </div>
+            </div>
+            <div class="col">
+                <label for="plant-name" class="card-title">Name</label>
+                <input class="form-control" id="plant-name"
+                       name="name"
+                       [(ngModel)]="modifiedPlant()!.plantName"/>
 
-      <div class="col-8">
-        <label for="plant-nation" class="form-label">Nation</label>
-        <input class="form-control" id="plant-nation"
-               name="nation"
-               [(ngModel)]="modifiedPlant()!.plantNation"/>
-      </div>
+            </div>
 
-      <div class="col-8">
-        <label for="plant-city" class="form-label">City</label>
-        <input class="form-control" id="plant-city"
-               name="city"
-               [(ngModel)]="modifiedPlant()!.plantCity"/>
-      </div>
+          </div>
 
-      <div class="col-3">
-        <label for="plant-street" class="form-label">Street</label>
-        <input class="form-control" id="plant-street"
-               name="street"
-               [(ngModel)]="modifiedPlant()!.plantStreet"/>
-      </div>
+        </div>
+        <div class="row card-body">
+          <div class="col">
+            <label for="plant-nation" class="form-label">Nation</label>
+            <input class="form-control" id="plant-nation"
+                   name="nation"
+                   [(ngModel)]="modifiedPlant()!.plantNation"/>
+          </div>
+          <div class="col">
+            <label for="plant-city" class="form-label">City</label>
+            <input class="form-control" id="plant-city"
+                   name="city"
+                   [(ngModel)]="modifiedPlant()!.plantCity"/>
+          </div>
+          <div class="col">
+            <label for="plant-street" class="form-label">Street</label>
+            <input class="form-control" id="plant-street"
+                   name="street"
+                   [(ngModel)]="modifiedPlant()!.plantStreet"/>
+          </div>
+          <div class="col">
+            <label for="plant-zip" class="form-label">Zip Code</label>
+            <input class="form-control" id="plant-zip"
+                   name="zip"
+                   [(ngModel)]="modifiedPlant()!.plantZIP"/>
+          </div>
+          <div class="col">
+            <label for="plant-status" class="form-label">Status</label>
+            <input class="form-control" id="plant-status"
+                   name="status"
+                   [(ngModel)]="modifiedPlant()!.plantStatus"/>
+          </div>
+        </div>
 
-      <div class="col-3">
-        <label for="plant-zip" class="form-label">Zip Code</label>
-        <input class="form-control" id="plant-zip"
-               name="zip"
-               [(ngModel)]="modifiedPlant()!.plantZIP"/>
-      </div>
-
-      <div class="col-3">
-        <label for="plant-status" class="form-label">Status</label>
-        <input class="form-control" id="plant-status"
-               name="status"
-               [(ngModel)]="modifiedPlant()!.plantStatus"/>
-      </div>
-
-      <hr class="my-4"/>
-      <h3 class="text-body">Actions</h3>
-      <div>
-        <button type="button"
-                class="btn btn-success m-2"
-                (click)="saveChanges()">{{ isNewPlant() ? 'Create Plant' : 'Save Changes' }}</button>
-
-        @if(!isNewPlant())
-        {
-          <button type="button"
-                  class="btn btn-danger m-2"
-                  (click)="deletePlant()">
-            Delete Plant
+        <div class="card-footer">
+          <h3 class="text-black">Actions</h3>
+          <button
+            class="btn btn-success m-2"
+            (click)="saveChanges()">
+            {{ isNewPlant() ? 'Create Plant' : 'Save Changes' }}
           </button>
-        }
+          @if (!isNewPlant()) {
+            <button type="button"
+                    class="btn btn-danger m-2"
+                    (click)="deletePlant()">
+              Delete Plant
+            </button>
+          }
 
-        <button type="button" class="btn btn-warning m-2" (click)="discardChanges()">Discard Changes</button>
+          <button type="button"
+                  class="btn btn-secondary m-2"
+                  (click)="discardChanges()">
+            Discard Changes
+          </button>
 
-        <a routerLink="/plants" class="btn btn-secondary m2">
-          Go Back
-        </a>
+          <a routerLink="/dogs" class="btn btn-secondary m-2">
+            Back to Plant List
+          </a>
+
+        </div>
       </div>
     </form>
   }
@@ -95,6 +107,11 @@
   {
     <p>Loading plant details</p>
   }
+
+  <div class="row">
+
+
+  </div>
 
 </main>
 

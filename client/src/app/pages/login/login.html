@@ -1,1 +1,35 @@
-<p>login works!</p>
+
+<div class="container mt-5 mb-5">
+  <div class="card w-50 mx-auto p-3">
+    <div class="card-header">
+      <h1 class="card-title">Login</h1>
+    </div>
+    <div class="card-body">
+      <form class="row gap-3">
+
+        <div class="col-12">
+          <label for="login-username" class="form-label">Username</label>
+          <input class="form-control" id="login-username"
+                 name="username" type="text" [(ngModel)]="employee.employeeUsername"/>
+        </div>
+
+        <div class="col-12">
+          <label for="login-password" class="form-label">Password</label>
+          <input class="form-control" id="login-password"
+                 name="password" type="password" [(ngModel)]="employee.employeePassword"/>
+        </div>
+
+        <hr class="my-2"/>
+        <h3 class="text-center header">Actions</h3>
+        <button type="button" class="btn btn-secondary w-25 mx-auto"
+                (click)="redirectToRegister()">Register here
+        </button>
+
+        <button type="button" class="btn btn-primary w-25 mx-auto"
+                (click)="onLogin()">Login
+        </button>
+      </form>
+    </div>
+
+  </div>
+</div>

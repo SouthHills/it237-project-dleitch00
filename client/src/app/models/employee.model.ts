@@ -10,6 +10,7 @@ export interface EmployeeModel
   employeeSalary: number;
   employeeBirthday: Date;
   employeeUsername: string;
+  employeeToken: string | null;
   plantID: number;
   employeePassword: string;
 }

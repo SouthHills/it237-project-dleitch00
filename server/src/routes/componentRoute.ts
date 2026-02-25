@@ -1,6 +1,7 @@
 import {Router} from "express";
 import {AppDataSource} from "../data-source.js";
 import {Component} from "../entities/Component.js";
+import {redirectNonAdmins} from "../utils/authentication.js";
 
 
 const router = Router();
@@ -38,7 +39,7 @@ router.get('/components/:id', async(req, res) =>
     else res.json(component);
 });
 
-router.put('/components/:id', async(req, res) =>
+router.put('/components/:id', redirectNonAdmins, async(req, res) =>
 {
     const id : number = parseInt(req.params.id);
     const componentData = req.body;
@@ -63,7 +64,7 @@ router.put('/components/:id', async(req, res) =>
     }
 });
 
-router.post('/components', async (req, res) =>
+router.post('/components', redirectNonAdmins, async (req, res) =>
 {
     const componentData = req.body;
     console.log(componentData);
@@ -99,7 +100,7 @@ router.post('/components', async (req, res) =>
     }
 });
 
-router.delete('/components/:id', async (req, res) =>
+router.delete('/components/:id', redirectNonAdmins, async (req, res) =>
 {
     const id = parseInt(req.params.id);
 

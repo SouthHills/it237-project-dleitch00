@@ -11,12 +11,13 @@ import {PlantList} from './pages/plant/plant-list/plant-list';
 import {VendorList} from './pages/vendor/vendor-list/vendor-list';
 import {VendorDetail} from './pages/vendor/vendor-detail/vendor-detail';
 import {Login} from './pages/login/login';
-import {MyPlant} from './pages/plant/my-plant/my-plant';
+import {Register} from './pages/register/register';
 
 export const routes: Routes = [
   { path: 'dashboard', redirectTo: '', pathMatch: "full"},
   { path: '', component: Dashboard, title: 'Dashboard'},
   { path: 'login', component: Login, title: 'Login'},
+  { path: 'register', component: Register, title: 'Register'},
   { path: 'products', component: ProductList, title: 'Product List'},
   { path: 'products/:id', component: ProductDetail, title: 'Product Details'},
   { path: 'components', component: ComponentList, title: 'Component List'},
@@ -27,6 +28,5 @@ export const routes: Routes = [
   { path: 'plants/:id', component: PlantDetail, title: 'Plant Details'},
   { path: 'vendors', component: VendorList, title: 'Vendor List'},
   { path: 'vendors/:id', component: VendorDetail, title: 'Vendor Details'},
-  { path: 'myplant', component: MyPlant, title: 'Plant Details'},
 
 ];

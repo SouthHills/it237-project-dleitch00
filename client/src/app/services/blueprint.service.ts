@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {HttpClient} from '@angular/common/http';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {BlueprintModel} from '../models/blueprint.model';
 
@@ -11,6 +11,19 @@ class BlueprintService {
 
 
   constructor(private http: HttpClient) {}
+
+  private getAuthHeaders(): { headers?: HttpHeaders }
+  {
+    const token = localStorage.getItem('token');
+    if (!token)
+    {
+      return {};
+    }
+
+    return {
+      headers: new HttpHeaders({ Authorization: `Bearer ${token}` })
+    };
+  }
 
   getBlueprint(): Observable<BlueprintModel[]> {
     return this.http.get<BlueprintModel[]>(this.apiUrl);

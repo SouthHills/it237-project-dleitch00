@@ -1,11 +1,12 @@
 import {Router} from "express";
 import {AppDataSource} from "../data-source.js";
 import {Plant} from "../entities/Plant.js";
+import {redirectNonAdmins} from "../utils/authentication.js";
 
 
 const router = Router();
 
-router.get('/plants', async(req, res) =>
+router.get('/plants', redirectNonAdmins, async(req, res) =>
 {
     const plants = await AppDataSource.getRepository(Plant).find();
 
@@ -27,7 +28,7 @@ router.get('/plants/:id', async(req, res) =>
     else res.json(plant);
 });
 
-router.put('/plants/:id', async(req, res) =>
+router.put('/plants/:id', redirectNonAdmins, async(req, res) =>
 {
     const id : number = parseInt(req.params.id);
     const plantData = req.body;
@@ -52,7 +53,7 @@ router.put('/plants/:id', async(req, res) =>
     }
 });
 
-router.post('/plants', async (req, res) =>
+router.post('/plants', redirectNonAdmins, async (req, res) =>
 {
     const plantData = req.body;
     console.log(plantData);
@@ -90,7 +91,7 @@ router.post('/plants', async (req, res) =>
     }
 });
 
-router.delete('/plants/:id', async (req, res) =>
+router.delete('/plants/:id', redirectNonAdmins, async (req, res) =>
 {
     const id = parseInt(req.params.id);
 

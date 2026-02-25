@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {HttpClient} from '@angular/common/http';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {VendorModel} from '../models/vendor.model';
 
@@ -11,6 +11,19 @@ export class VendorService {
 
 
   constructor(private http: HttpClient) {}
+
+  private getAuthHeaders(): { headers?: HttpHeaders }
+  {
+    const token = localStorage.getItem('token');
+    if (!token)
+    {
+      return {};
+    }
+
+    return {
+      headers: new HttpHeaders({ Authorization: `Bearer ${token}` })
+    };
+  }
 
   getVendors(): Observable<VendorModel[]> {
     return this.http.get<VendorModel[]>(this.apiUrl);

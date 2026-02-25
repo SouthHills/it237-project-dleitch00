@@ -1,6 +1,7 @@
 import {Router} from "express";
 import {AppDataSource} from "../data-source.js";
 import {Blueprint} from "../entities/Blueprint.js";
+import {redirectNonAdmins} from "../utils/authentication.js";
 
 
 const router = Router();
@@ -41,16 +42,30 @@ router.get('/blueprint/', async(req, res) =>
     else res.json(blueprint);
 });
 
-router.put('/blueprints/:id', async(req, res) =>
+router.put('/blueprint', async(req, res) =>
 {
-    const id : number = parseInt(req.params.id);
+    const prodIdParam = req.query.prodId as string | undefined;
+    const componentIdParam = req.query.componentId as string | undefined;
+
+    if(!prodIdParam || !componentIdParam)
+    {
+        res.status(400).json({ message: "Both prodId and componentId query parameters are required." });
+        return;
+    }
+
+    const prodId : number = parseInt(prodIdParam);
+    const compId : number = parseInt(componentIdParam);
     const blueprintData = req.body;
 
     const blueprintRepository = AppDataSource.getRepository(Blueprint);
-    const existingBlueprint = await blueprintRepository.findOneBy({ productID: id});
+    const existingBlueprint = await blueprintRepository.findOneBy({
+        productID: prodId,
+        componentID: compId
+    });
+
     if(!existingBlueprint)
     {
-        res.status(404).json({ message: `Blueprint with id ${id} not found.`});
+        res.status(404).json({ message: `Blueprint with Product ID ${prodId} and Component ID ${compId} not found.`});
         return;
     }
 
@@ -66,7 +81,7 @@ router.put('/blueprints/:id', async(req, res) =>
     }
 });
 
-router.post('/blueprints', async (req, res) =>
+router.post('/blueprints', redirectNonAdmins, async (req, res) =>
 {
     const blueprintData = req.body;
     console.log(blueprintData);
@@ -100,17 +115,30 @@ router.post('/blueprints', async (req, res) =>
     }
 });
 
-router.delete('/blueprints/:id', async (req, res) =>
+router.delete('/blueprint', redirectNonAdmins, async (req, res) =>
 {
-    const id = parseInt(req.params.id);
+    const prodIdParam = req.query.prodId as string | undefined;
+    const componentIdParam = req.query.componentId as string | undefined;
+
+    if(!prodIdParam || !componentIdParam)
+    {
+        res.status(400).json({ message: "Both prodId and componentId query parameters are required." });
+        return;
+    }
+
+    const prodId : number = parseInt(prodIdParam);
+    const compId : number = parseInt(componentIdParam);
 
     const blueprintRepository = AppDataSource.getRepository(Blueprint);
 
-    const blueprint = await blueprintRepository.findOneBy({productID: id});
+    const blueprint = await blueprintRepository.findOneBy({
+        productID: prodId,
+        componentID: compId
+    });
 
     if (!blueprint)
     {
-        res.status(404).json({ message: `Blueprint with id ${id} not found` });
+        res.status(404).json({ message: `Blueprint with Product ID ${prodId} and Component ID ${compId} not found` });
         return;
     }
 
@@ -118,7 +146,7 @@ router.delete('/blueprints/:id', async (req, res) =>
     {
         await blueprintRepository.remove(blueprint)
 
-        res.json({ message: `Blueprint with ID ${id} successfully deleted` });
+        res.json({ message: `Blueprint with Product ID ${prodId} and Component ID ${compId} successfully deleted` });
     }
     catch (error)
     {

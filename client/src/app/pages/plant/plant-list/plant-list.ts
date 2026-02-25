@@ -29,6 +29,10 @@ export class PlantList {
         error: (error) => {
           this.errorMessage.set('Error fetching plants.');
           console.error('There was an error!', error);
+          if(error.error.redirectUrl)
+          {
+            this.router.navigate([error.error.redirectUrl]);
+          }
         }
       });
 

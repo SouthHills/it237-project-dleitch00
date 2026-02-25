@@ -1,18 +1,103 @@
 import {Router} from "express";
 import {AppDataSource} from "../data-source.js";
 import {Employee} from "../entities/Employee.js";
+import {hashPassword, comparePasswords, generateToken, redirectNonAdmins} from "../utils/authentication.js";
 
 
 const router = Router();
 
-router.get('/employees', async(req, res) =>
+router.get('/employees', redirectNonAdmins, async(req, res) =>
 {
     const employees = await AppDataSource.getRepository(Employee).find();
 
     res.json(employees);
 });
 
-router.get('/employees/:id', async(req, res) =>
+// Register endpoint MUST come before /:id routes to prevent route matching conflicts
+router.put('/employees/register', async (req, res) =>
+{
+    try
+    {
+        const { employeeID, employeeUsername, employeePassword } = req.body;
+
+        if (!employeeID || !employeeUsername || !employeePassword)
+        {
+            res.status(400).json({ message: "Employee ID, username, and password are required." });
+            return;
+        }
+
+        const employeeRepository = AppDataSource.getRepository(Employee);
+        const employee = await employeeRepository.findOneBy({ employeeID, employeeUsername });
+
+        if (!employee)
+        {
+            res.status(404).json({ message: "Employee not found with the provided ID and username." });
+            return;
+        }
+
+        employee.employeePassword = await hashPassword(employeePassword);
+        await employeeRepository.save(employee);
+
+        res.json({ message: "Password updated successfully." });
+
+
+    }
+    catch (error)
+    {
+        console.error('Error during registration:', error);
+        res.status(500).json({ message: 'Error updating password.', error });
+    }
+});
+
+router.post('/employees/login', async (req, res) =>
+{
+    const { employeeUsername, employeePassword } = req.body;
+
+    if (!employeeUsername || !employeePassword)
+    {
+        res.status(400).json({ message: "Username and password are required." });
+        return;
+    }
+
+    const employeeRepository = AppDataSource.getRepository(Employee);
+
+    try
+    {
+        const employee = await employeeRepository.findOneBy({ employeeUsername });
+
+        if (!employee)
+        {
+            res.status(404).json({ message: "Employee not found with the provided username." });
+            return;
+        }
+
+        const isPasswordValid = await comparePasswords(employeePassword, employee.employeePassword);
+
+        if (!isPasswordValid)
+        {
+            res.status(401).json({ message: "Invalid password." });
+            return;
+        }
+
+        const token = generateToken({
+            employeeID: employee.employeeID,
+            employeeIsAdmin: employee.employeeIsAdmin,
+            plantID: employee.plantID,
+        } as any);
+        employee.employeeToken = token;
+        await employeeRepository.save(employee);
+
+        res.json({ message: "Login successful.", token, user: employee });
+    }
+    catch (error)
+    {
+        console.error('Error during login:', error);
+        res.status(500).json({ message: 'Error during login.', error });
+    }
+})
+
+
+router.get('/employees/:id', redirectNonAdmins, async(req, res) =>
 {
     const id : number = parseInt(req.params.id);
     console.log(id);
@@ -27,7 +112,7 @@ router.get('/employees/:id', async(req, res) =>
     else res.json(employee);
 });
 
-router.put('/employees/:id', async(req, res) =>
+router.put('/employees/:id', redirectNonAdmins, async(req, res) =>
 {
     const id : number = parseInt(req.params.id);
     const employeeData = req.body;
@@ -52,7 +137,7 @@ router.put('/employees/:id', async(req, res) =>
     }
 });
 
-router.post('/employees', async (req, res) =>
+router.post('/employees', redirectNonAdmins, async (req, res) =>
 {
     const employeeData = req.body;
     console.log(employeeData);
@@ -69,7 +154,6 @@ router.post('/employees', async (req, res) =>
         'employeeSalary',
         'employeeBirthday',
         'employeeUsername',
-        'employeePassword',
         'plantID'
     ];
 
@@ -95,7 +179,7 @@ router.post('/employees', async (req, res) =>
     }
 });
 
-router.delete('/employees/:id', async (req, res) =>
+router.delete('/employees/:id', redirectNonAdmins, async (req, res) =>
 {
     const id = parseInt(req.params.id);
 

@@ -22,10 +22,19 @@ export class EmployeeList {
     {
       //benefits of subscribing to an observable is that when it changes it will automatically be called
       this.employeeService.getEmployees().subscribe({
-        next: (data ) => this.employees.set(data),
+        next: (data ) => {
+          console.log(data);
+          this.employees.set(data)
+        },
         error: (error) => {
-          this.errorMessage.set('Error fetching employees.');
           console.error('There was an error!', error);
+
+          if(error.error.redirectUrl)
+          {
+            this.router.navigate([error.error.redirectUrl]);
+          }
+
+          this.errorMessage.set('Error fetching employees.');
         }
       });
 

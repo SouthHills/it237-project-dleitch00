@@ -40,6 +40,9 @@ export class Employee
     @Column({name: "PLANT_ID", type: "int", nullable: true})
     plantID!: number | null;
 
+    @Column({name: "EMP_TOKEN", type: "varchar", length: 255, nullable: true})
+    employeeToken!: string | null;
+
     @ManyToOne(() => Plant, plant => plant.employees)
         @JoinColumn({name: "PLANT_ID", referencedColumnName: "plantID"})
     plant!: Plant;

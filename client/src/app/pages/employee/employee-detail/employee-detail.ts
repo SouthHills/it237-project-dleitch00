@@ -62,6 +62,10 @@ export class EmployeeDetail {
           error: (error) => {
             this.errorMessage.set('Error fetching the employee');
             console.error('There was an error!', error);
+            if(error.error.redirectUrl)
+            {
+              this.router.navigate([error.error.redirectUrl]);
+            }
           }
         });
       }

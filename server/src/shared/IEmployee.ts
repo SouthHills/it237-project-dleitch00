@@ -11,6 +11,7 @@ export interface IEmployee
     employeeSalary: number;
     employeeBirthday: Date;
     employeeUsername: string;
+    employeeToken: string | null;
     plantID: number;
     plantName: string;
 }

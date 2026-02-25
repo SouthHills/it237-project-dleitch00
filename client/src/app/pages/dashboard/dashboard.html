@@ -1,1 +1,39 @@
-<p>dashboard works!</p>
+<main class="container">
+  <h1 class="mb-4 header">Dashboard</h1>
+
+  <div class="card mb-4">
+    <div class="card-header">
+      <h2 class="card-title">Welcome to the Dashboard!</h2>
+    </div>
+    <div class="card-body">
+      <p class="card-text">This is your dashboard where you can manage your plants, employees, products, and more.
+        Use the navigation menu to access different sections of the application.
+      </p>
+    </div>
+  </div>
+
+  <section id="plant-section" class="text-center mx-auto">
+    <h2 class="mb-3 header">Plants</h2>
+    <div class="carousel">
+      @for (plant of plants(); track plant.plantID) {
+      <div class="carousel-item card">
+
+
+          <div class="card-header">
+            <h3 class="card-title">{{plant.plantName}}</h3>
+          </div>
+          <div class="card-body">
+            <p class="card-text">{{ plant.plantStreet }}</p>
+
+          </div>
+
+      </div>
+      }
+
+
+
+    </div>
+
+  </section>
+
+</main>

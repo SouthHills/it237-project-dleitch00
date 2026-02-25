@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {HttpClient} from '@angular/common/http';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {PlantModel} from '../models/plant.model';
 
@@ -12,6 +12,19 @@ export class PlantService {
 
 
   constructor(private http: HttpClient) {}
+
+  private getAuthHeaders(): { headers?: HttpHeaders }
+  {
+    const token = localStorage.getItem('token');
+    if (!token)
+    {
+      return {};
+    }
+
+    return {
+      headers: new HttpHeaders({ Authorization: `Bearer ${token}` })
+    };
+  }
 
   getPlants(): Observable<PlantModel[]>
   {
