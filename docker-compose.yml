@@ -1,36 +1,50 @@
 services:
   database:
-    env_file:
-      - server/.env
-    image: mysql:8.0
+    container_name: database
+    env_file: ".env"
+    image: mcr.microsoft.com/mssql/server:2022-latest
     restart: unless-stopped
+    environment:
+      ACCEPT_EULA: "Y"
+      SA_PASSWORD: ${SA_PASSWORD}
+      MSSQL_PID: Express
     ports:
-      - "3306:3306"
+      - "1433:1433"
     volumes:
-      - database_volume:/var/lib/mysql
+      - database_volume:/var/opt/mssql
+      - ./createDatabase.sql:/dockerfilestorage/createDatabase.sql
     healthcheck:
-      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      test: ["CMD-SHELL", "/opt/mssql-tools18/bin/sqlcmd -C -S localhost -U sa -P \"$SA_PASSWORD\" -Q \"SELECT 1\" || exit 1"]
       interval: 5s
       timeout: 5s
       retries: 5
       start_period: 15s
 
   server:
-    build: server-dockerfile
+    container_name: server
+    env_file: ".env"
+    build:
+      context: .
+      dockerfile: server-dockerfile
     restart: unless-stopped
     ports:
       - "3000:3000"
     depends_on:
       database:
         condition: service_healthy
-    env_file:
-      - server/.env
     environment:
       DB_HOST: database
-      DB_PORT: 3306
+      DB_USER: ${DB_USER}
+      DB_PASSWORD: ${SA_PASSWORD}
+      DB_NAME: ${DB_NAME}
+      
+     
 
   client:
-    build: client-dockerfile
+    container_name: client
+    build:
+      context: .
+      dockerfile: client-dockerfile
     restart: unless-stopped
     ports:
       - "8080:8080"
