@@ -26,31 +26,31 @@ export class VendorService {
   }
 
   getVendors(): Observable<VendorModel[]> {
-    return this.http.get<VendorModel[]>(this.apiUrl);
+    return this.http.get<VendorModel[]>(this.apiUrl, this.getAuthHeaders());
   }
 
   getVendorById(vendorID: number) : Observable<VendorModel> {
     const escapedVendorID = encodeURIComponent(vendorID);
 
-    return this.http.get<VendorModel>(`${this.apiUrl}/${escapedVendorID}`)
+    return this.http.get<VendorModel>(`${this.apiUrl}/${escapedVendorID}`, this.getAuthHeaders())
   }
 
   addVendor(vendor: VendorModel): Observable<VendorModel> {
-    return this.http.post<VendorModel>(this.apiUrl, vendor)
+    return this.http.post<VendorModel>(this.apiUrl, vendor, this.getAuthHeaders())
   }
 
   updateVendor(vendor: VendorModel) : Observable<VendorModel>
   {
     const escapedVendorID = encodeURIComponent(vendor.vendorID);
 
-    return this.http.put<VendorModel>(`${this.apiUrl}/${escapedVendorID}`, vendor);
+    return this.http.put<VendorModel>(`${this.apiUrl}/${escapedVendorID}`, vendor, this.getAuthHeaders());
   }
 
   deleteVendor(vendorID: number) : Observable<void>
   {
     const escapedVendorID = encodeURIComponent(vendorID);
 
-    return this.http.delete<void>(`${this.apiUrl}/${escapedVendorID}`);
+    return this.http.delete<void>(`${this.apiUrl}/${escapedVendorID}`, this.getAuthHeaders());
   }
 
 

@@ -6,7 +6,7 @@ import {hashPassword, comparePasswords, generateToken, redirectNonAdmins} from "
 
 const router = Router();
 
-router.get('/employees', redirectNonAdmins, async(req, res) =>
+router.get('/employees', async(req, res) =>
 {
     const employees = await AppDataSource.getRepository(Employee).find();
 
@@ -87,7 +87,11 @@ router.post('/employees/login', async (req, res) =>
         employee.employeeToken = token;
         await employeeRepository.save(employee);
 
-        res.json({ message: "Login successful.", token, user: employee });
+        const resEmployee = { ...employee, employeePassword: undefined };
+
+
+
+        res.json({ message: "Login successful.", token, user: resEmployee });
     }
     catch (error)
     {

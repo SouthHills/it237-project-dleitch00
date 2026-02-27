@@ -26,11 +26,37 @@ export class EmployeeService
     };
   }
 
+  get isAdmin(): boolean
+  {
+    const employeeData = localStorage.getItem('employee');
+    if (!employeeData)
+    {
+      return false;
+    }
+
+    const employee: EmployeeModel = JSON.parse(employeeData);
+    return employee.employeeIsAdmin === 'Y';
+
+  }
+
+  get currentPlantID(): number | null
+  {
+    const employeeData = localStorage.getItem('employee');
+    if (!employeeData)
+    {
+      return null;
+    }
+
+    const employee: EmployeeModel = JSON.parse(employeeData);
+    return employee.plantID;
+  }
+
+
   getEmployees(): Observable<EmployeeModel[]>
   {
-    console.log('Fetching employees with auth headers:', this.getAuthHeaders());
-    return this.http.get<EmployeeModel[]>(this.apiUrl, this.getAuthHeaders());
+    return this.http.get<EmployeeModel[]>(this.apiUrl);
   }
+
 
     getEmployeeById(employeeID: number): Observable<EmployeeModel>
   {
@@ -40,19 +66,19 @@ export class EmployeeService
 
   addEmployee(employee: EmployeeModel): Observable<EmployeeModel>
   {
-    return this.http.post<EmployeeModel>(this.apiUrl, employee);
+    return this.http.post<EmployeeModel>(this.apiUrl, employee, this.getAuthHeaders());
   }
 
   updateEmployee(employee: EmployeeModel): Observable<EmployeeModel>
   {
     const escapedEmployeeID = encodeURIComponent(employee.employeeID);
-    return this.http.put<EmployeeModel>(`${this.apiUrl}/${escapedEmployeeID}`, employee);
+    return this.http.put<EmployeeModel>(`${this.apiUrl}/${escapedEmployeeID}`, employee, this.getAuthHeaders());
   }
 
   deleteEmployee(employeeID: number): Observable<EmployeeModel>
   {
     const escapedEmployeeID = encodeURIComponent(employeeID);
-    return this.http.delete<EmployeeModel>(`${this.apiUrl}/${escapedEmployeeID}`);
+    return this.http.delete<EmployeeModel>(`${this.apiUrl}/${escapedEmployeeID}`, this.getAuthHeaders());
   }
 
   registerEmployee(employeeData: any): Observable<EmployeeModel>
@@ -66,3 +92,4 @@ export class EmployeeService
   }
 
 }
+

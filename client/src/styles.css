@@ -1,4 +1,23 @@
 /* You can add global styles to this file, and also import other style files */
 @import 'bootstrap/dist/css/bootstrap.min.css';
 
+.card-header {
+  background-color: #143757;
+  font-weight: bold;
+  color: white;
+}
+
+.btn-primary
+{
+  background-color: #143757;
+  border-color: white;
+  color: white;
+}
+
+h1, h2, h3, h4, h5, h6
+{
+  color: #143757;
+  font-weight: bolder;
+}
+
 

@@ -42,7 +42,7 @@ router.get('/blueprint/', async(req, res) =>
     else res.json(blueprint);
 });
 
-router.put('/blueprint', async(req, res) =>
+router.put('/blueprint', redirectNonAdmins, async(req, res) =>
 {
     const prodIdParam = req.query.prodId as string | undefined;
     const componentIdParam = req.query.componentId as string | undefined;

@@ -91,7 +91,7 @@
             Discard Changes
           </button>
 
-          <a routerLink="/dogs" class="btn btn-secondary m-2">
+          <a routerLink="/plants" class="btn btn-secondary m-2">
             Back to Plant List
           </a>
 
@@ -109,6 +109,83 @@
   }
 
   <div class="row">
+    <div class="col">
+      @if (employees())
+      {
+        <table class="table table-striped text-center table-bordered w-75 mx-auto mt-3 table-rounded">
+          <thead>
+          <tr>
+            <th colspan="4" class="fs-2">Employees</th>
+          </tr>
+          <tr>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Middle Initial</th>
+            <th>Job Title</th>
+          </tr>
+          </thead>
+          <tbody>
+            @for (employee of getEmployeeForCurrentPlant() ; track employee.employeeID)
+            {
+              <tr>
+                <td>{{ employee.employeeFirstName }}</td>
+                <td>{{ employee.employeeLastName}}</td>
+                <td>{{ employee.employeeMiddleInitial}}</td>
+                <td>{{ employee.employeeJobTitle}}</td>
+              </tr>
+            }
+            @empty
+            {
+              <tr>
+                <td colspan="4">
+                  No Employees Found
+                </td>
+              </tr>
+            }
+          </tbody>
+        </table>
+      }
+
+
+
+    </div>
+    <div class="col">
+      @if (products())
+      {
+        <table class="table table-striped text-center table-bordered w-75 mx-auto mt-3 table-rounded">
+          <thead>
+          <tr>
+            <th colspan="4" class="fs-2">Products</th>
+          </tr>
+          <tr>
+            <th>Name</th>
+            <th>Description</th>
+            <th>Price</th>
+          </tr>
+          </thead>
+          <tbody>
+            @for (product of getProductForCurrentPlant() ; track product.productID)
+            {
+              <tr>
+                <td>{{ product.productName }}</td>
+                <td>{{ product.productDescription}}</td>
+                <td>{{ product.productPrice}}</td>
+              </tr>
+            }
+            @empty
+            {
+              <tr>
+                <td colspan="4">
+                  No Products Found
+                </td>
+              </tr>
+            }
+          </tbody>
+        </table>
+      }
+
+
+    </div>
 
 
   </div>

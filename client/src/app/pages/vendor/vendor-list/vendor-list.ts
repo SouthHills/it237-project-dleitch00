@@ -7,7 +7,6 @@ import {CurrencyPipe} from '@angular/common';
 @Component({
   selector: 'app-vendor-list',
   imports: [
-    CurrencyPipe
   ],
   templateUrl: './vendor-list.html',
   styleUrl: './vendor-list.css',
@@ -26,6 +25,10 @@ export class VendorList {
         next: (data ) => this.vendors.set(data),
         error: (error) => {
           this.errorMessage.set('Error fetching vendors.');
+          if(error.error.redirectUrl)
+          {
+            this.router.navigate([error.error.redirectUrl]);
+          }
           console.error('There was an error!', error);
         }
       });

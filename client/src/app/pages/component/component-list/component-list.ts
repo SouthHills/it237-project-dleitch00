@@ -28,6 +28,10 @@ export class ComponentList {
         next: (data ) => this.components.set(data),
         error: (error) => {
           this.errorMessage.set('Error fetching components.');
+          if(error.error.redirectUrl)
+          {
+            this.router.navigate([error.error.redirectUrl]);
+          }
           console.error('There was an error!', error);
         }
       });
