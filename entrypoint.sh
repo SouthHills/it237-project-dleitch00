@@ -2,12 +2,12 @@
 
 /opt/mssql/bin/sqlservr &
 
-until /opt/mssql-tools18/bin/sqlcmd -C -S localhost -U sa -P "$SA_PASSWORD"  -Q "SELECT 1"; 
+until /opt/mssql-tools18/bin/sqlcmd -C -S "$DB_HOST" -U "$DB_USER" -P "$SA_PASSWORD"  -Q "SELECT 1"; 
 do
     sleep 2
 done
 
-/opt/mssql-tools18/bin/sqlcmd -C -S localhost -U sa -P "$SA_PASSWORD" -d master -i /dockerfilestorage/createDatabase.sql
+/opt/mssql-tools18/bin/sqlcmd -C -S "$DB_HOST" -U "$DB_USER" -P "$SA_PASSWORD" -d "$DB_NAME" -i /dockerfilestorage/createDatabase.sql
 
 wait
 
