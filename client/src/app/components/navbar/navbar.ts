@@ -13,5 +13,10 @@ import {NgOptimizedImage} from '@angular/common';
   styleUrl: './navbar.css',
 })
 export class Navbar {
+  deleteToken(): void
+  {
+    localStorage.removeItem('token');
+    localStorage.removeItem('employee');
+  }
 
 }

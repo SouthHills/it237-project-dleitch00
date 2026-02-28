@@ -101,17 +101,34 @@ export class ProductDetail {
     });
   }
 
+  viewBlueprintDetails(componentID: number): void
+  {
+    const productID = this.product()?.productID;
+    console.log(`Navigating to blueprint details with productID: ${productID} and componentID: ${componentID}`);
+
+
+    this.router.navigate(['/blueprint'], {queryParams: {productID, componentID}});
+  }
+
   blueprintForCurrentProduct()
   {
-    const blueprints = [];
-    const directions = {
-      componentName: '',
-      componentDescription: '',
-      componentAmount: 0
-    }
 
+    const currentProduct = this.product();
+    if(!currentProduct) return [];
 
+    const productBlueprints = this.blueprints().filter(bp => bp.productID === currentProduct.productID);
+    const componentIDs = productBlueprints.map(bp => bp.componentID);
 
+    return this.components().filter(component => componentIDs.includes(component.componentID));
+  }
+
+  amountOfComponentInProduct(componentID: number): number
+  {
+    const currentProduct = this.product();
+    if(!currentProduct) return 0;
+
+    const blueprint = this.blueprints().find(bp => bp.productID === currentProduct.productID && bp.componentID === componentID);
+    return blueprint ? blueprint.componentAmount : 0;
   }
 
   saveChanges(): void

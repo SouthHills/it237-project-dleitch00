@@ -41,9 +41,17 @@
            class="nav-link">
           Components
         </a>
-        <a routerLink="/login" routerLinkActive="active"
+        <a routerLink="/productionLines" routerLinkActive="active"
            [routerLinkActiveOptions]="{exact: true}"
            class="nav-link">
+          Production
+        </a>
+      </div>
+      <div class="navbar-nav ms-auto nav-tabs">
+        <a routerLink="/login" routerLinkActive="active"
+           [routerLinkActiveOptions]="{exact: true}"
+           class="nav-link"
+          (click)="deleteToken()">
           Log Out
         </a>
       </div>

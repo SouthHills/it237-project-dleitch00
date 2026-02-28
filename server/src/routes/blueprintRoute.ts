@@ -13,17 +13,17 @@ router.get('/blueprints', async(req, res) =>
     res.json(blueprints);
 });
 
-//http://localhost:3000/blueprint?prodId=1&componentId=4
-router.get('/blueprint/', async(req, res) =>
+//http://localhost:3000/blueprint?productID=1&componentID=4
+router.get('/blueprint', async(req, res) =>
 {
-    const prodIdParam = req.query.prodId as string | undefined;
-    const componentIdParam = req.query.componentId as string | undefined;
+    const prodIdParam = req.query.productID as string | undefined;
+    const componentIdParam = req.query.componentID as string | undefined;
     console.log(prodIdParam);
     console.log(componentIdParam);
 
     if(!prodIdParam || !componentIdParam)
     {
-        res.status(400).json({ message: "Both prodId and componentId query parameters are required." });
+        res.status(400).json({ message: "Both productID and componentID query parameters are required." });
         return;
     }
 
@@ -44,12 +44,12 @@ router.get('/blueprint/', async(req, res) =>
 
 router.put('/blueprint', redirectNonAdmins, async(req, res) =>
 {
-    const prodIdParam = req.query.prodId as string | undefined;
-    const componentIdParam = req.query.componentId as string | undefined;
+    const prodIdParam = req.query.productID as string | undefined;
+    const componentIdParam = req.query.componentID as string | undefined;
 
     if(!prodIdParam || !componentIdParam)
     {
-        res.status(400).json({ message: "Both prodId and componentId query parameters are required." });
+        res.status(400).json({ message: "Both productID and componentID query parameters are required." });
         return;
     }
 
@@ -117,12 +117,12 @@ router.post('/blueprints', redirectNonAdmins, async (req, res) =>
 
 router.delete('/blueprint', redirectNonAdmins, async (req, res) =>
 {
-    const prodIdParam = req.query.prodId as string | undefined;
-    const componentIdParam = req.query.componentId as string | undefined;
+    const prodIdParam = req.query.productID as string | undefined;
+    const componentIdParam = req.query.componentID as string | undefined;
 
     if(!prodIdParam || !componentIdParam)
     {
-        res.status(400).json({ message: "Both prodId and componentId query parameters are required." });
+        res.status(400).json({ message: "Both productID and componentID query parameters are required." });
         return;
     }
 

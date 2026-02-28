@@ -1,5 +1,4 @@
-import {loadEnvFile} from 'node:process';
-//loadEnvFile('./server/.env');
+
 import {DataSource} from "typeorm";
 import {Component} from "./entities/Component.js";
 import {Employee} from "./entities/Employee.js";
@@ -16,6 +15,10 @@ export const AppDataSource = new DataSource({
     username: 'master',
     password: 'AdminPwd123!!',
     database: 'company',
+    options: {
+        encrypt: true,
+        trustServerCertificate: true,
+    },
     synchronize: false, // set to false in production
     logging: true,
     entities: [Component, Employee, Plant, Product, Vendor, ProductionLine, Blueprint],

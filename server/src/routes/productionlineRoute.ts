@@ -13,15 +13,15 @@ router.get('/productionLines', async(req, res) =>
     res.json(productionLines);
 });
 
-//http://localhost:3000/productionLine?prodId=1&plantID=4
+//http://localhost:3000/productionLine?productID=1&plantID=4
 router.get('/productionLine', async(req, res) =>
 {
-    const prodIdParam = req.query.prodID as string | undefined;
+    const prodIdParam = req.query.productID as string | undefined;
     const plantIdParam = req.query.plantID as string | undefined;
 
     if(!prodIdParam || !plantIdParam)
     {
-        res.status(400).json({ message: "Both prodID and plantID query parameters are required." });
+        res.status(400).json({ message: "Both productID and plantID query parameters are required." });
         return;
     }
 
@@ -41,14 +41,14 @@ router.get('/productionLine', async(req, res) =>
 });
 
 // update
-router.put('/productionLine', async(req, res) =>
+router.put('/productionLine', redirectNonAdmins, async(req, res) =>
 {
-    const prodIdParam = req.query.prodID as string | undefined;
+    const prodIdParam = req.query.productID as string | undefined;
     const plantIdParam = req.query.plantID as string | undefined;
 
     if(!prodIdParam || !plantIdParam)
     {
-        res.status(400).json({ message: "Both prodID and plantID query parameters are required." });
+        res.status(400).json({ message: "Both productID and plantID query parameters are required." });
         return;
     }
 
@@ -114,12 +114,12 @@ router.post('/productionLines', redirectNonAdmins, async (req, res) =>
 
 router.delete('/productionLine', redirectNonAdmins, async (req, res) =>
 {
-    const prodIdParam = req.query.prodID as string | undefined;
+    const prodIdParam = req.query.productID as string | undefined;
     const plantIdParam = req.query.plantID as string | undefined;
 
     if(!prodIdParam || !plantIdParam)
     {
-        res.status(400).json({ message: "Both prodID and plantID query parameters are required." });
+        res.status(400).json({ message: "Both productID and plantID query parameters are required." });
         return;
     }
 

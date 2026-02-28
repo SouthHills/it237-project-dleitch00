@@ -8,63 +8,82 @@
       </h1>
     }
 
-    <form class="row gap-3">
-      <div class="col-4">
-        <label for="product-id" class="form-label">Product ID</label>
-        <input class="form-control" id="product-id"
-               name="productID"
-               [(ngModel)]="modifiedProduct()!.productID"/>
-      </div>
+    <form>
+      <div class="card w-75 mx-auto">
+        <div class="card-header">
+          <div class="row ">
+            <div class="col-3">
+              <label for="product-id" class="form-label">Product ID</label>
+              <input class="form-control" id="product-id"
+                     name="productID"
+                     [(ngModel)]="modifiedProduct()!.productID"/>
 
-      <div class="col-3">
-        <label for="product-name" class="form-label">Product Name</label>
-        <input class="form-control" id="product-name"
-               name="name"
-               [(ngModel)]="modifiedProduct()!.productName"/>
-      </div>
+            </div>
 
-      <div class="col-8">
-        <label for="product-description" class="form-label">Product Description</label>
-        <input class="form-control" id="product-description"
-               name="description"
-               [(ngModel)]="modifiedProduct()!.productDescription"/>
-      </div>
+          </div>
 
-      <div class="col-8">
-        <label for="product-produced" class="form-label">Product Produced</label>
-        <input class="form-control" id="product-produced"
-               name="produced"
-               [(ngModel)]="modifiedProduct()!.productProduced"/>
-      </div>
+        </div>
+        <div class="row card-body">
+          <div class="col">
+            <label for="product-name" class="form-label">Product Name</label>
+            <input class="form-control" id="product-name"
+                   name="name"
+                   [(ngModel)]="modifiedProduct()!.productName"/>
+          </div>
+          <div class="col">
+            <label for="product-price" class="form-label">Price</label>
+            <input class="form-control" id="product-price"
+                   name="price" type="number" step=".01" min="0"
+                   [(ngModel)]="modifiedProduct()!.productPrice"/>
+          </div>
+          <div class="col-2">
+            <label for="product-produced" class="form-label">Product Produced</label>
+            <input class="form-control" id="product-produced"
+                   name="produced"
+                   [(ngModel)]="modifiedProduct()!.productProduced"/>
+          </div>
 
-      <div class="col-3">
-        <label for="product-price" class="form-label">Price</label>
-        <input class="form-control" id="product-price"
-               name="price" type="number" step=".01" min="0"
-               [(ngModel)]="modifiedProduct()!.productPrice"/>
-      </div>
+        </div>
+        <div class="row card-body">
+          <div class="col">
+            <label for="product-description" class="form-label">Product Description</label>
+            <textarea class="form-control" id="product-description"
+                   name="description"
+                   [(ngModel)]="modifiedProduct()!.productDescription">
+            </textarea>
+          </div>
 
-      <hr class="my-4"/>
-      <h3 class="text-body">Actions</h3>
-      <div>
-        <button type="button"
-                class="btn btn-success m-2"
-                (click)="saveChanges()">{{ isNewProduct() ? 'Create Product' : 'Save Changes' }}
-        </button>
 
-        @if (!isNewProduct()) {
-          <button type="button"
-                  class="btn btn-danger m-2"
-                  (click)="deleteProduct()">
-            Delete Product
-          </button>
-        }
 
-        <button type="button" class="btn btn-warning m-2" (click)="discardChanges()">Discard Changes</button>
 
-        <a routerLink="/products" class="btn btn-secondary m-2">
-          Go Back
-        </a>
+        </div>
+
+        <div class="card-footer">
+          <h3 class="text-body">Actions</h3>
+          <div>
+            <button type="button"
+                    class="btn btn-success m-2"
+                    (click)="saveChanges()">{{ isNewProduct() ? 'Create Product' : 'Save Changes' }}
+            </button>
+
+            @if (!isNewProduct()) {
+              <button type="button"
+                      class="btn btn-danger m-2"
+                      (click)="deleteProduct()">
+                Delete Product
+              </button>
+            }
+
+            <button type="button" class="btn btn-warning m-2" (click)="discardChanges()">Discard Changes</button>
+
+            <a routerLink="/products" class="btn btn-secondary m-2">
+              Go Back
+            </a>
+          </div>
+
+
+
+        </div>
       </div>
     </form>
   } @else if (errorMessage()) {
@@ -91,10 +110,10 @@
             </thead>
             <tbody>
               @for (component of blueprintForCurrentProduct(); track component.componentID) {
-                <tr>
+                <tr (click)="viewBlueprintDetails(component.componentID)">
                   <td>{{ component.componentName }}</td>
                   <td>{{ component.componentDescription }}</td>
-                  <td>{{ component.componentAmount }}</td>
+                  <td>{{ amountOfComponentInProduct(component.componentID) }}</td>
                 </tr>
               } @empty {
                 <tr>

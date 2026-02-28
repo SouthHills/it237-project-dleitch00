@@ -29,7 +29,7 @@ export class BlueprintService {
     return this.http.get<BlueprintModel[]>(`${this.apiUrl}/blueprints`, this.getAuthHeaders());
   }
 
-  getBlueprintById(productID : string, componentID: string) : Observable<BlueprintModel> {
+  getBlueprintById(productID: number, componentID: number) : Observable<BlueprintModel> {
     const parameterString = `productID=${encodeURIComponent(productID)}&componentID=${encodeURIComponent(componentID)}`;
 
     return this.http.get<BlueprintModel>(`${this.apiUrl}/blueprint?${parameterString}`, this.getAuthHeaders())
@@ -46,7 +46,7 @@ export class BlueprintService {
     return this.http.put<BlueprintModel>(`${this.apiUrl}/blueprint?${parameterString}`, blueprint, this.getAuthHeaders());
   }
 
-  deleteBlueprint(productID: string, componentID : string) : Observable<void>
+  deleteBlueprint(productID: number, componentID: number) : Observable<void>
   {
     const parameterString = `productID=${encodeURIComponent(productID)}&componentID=${encodeURIComponent(componentID)}`;
 
