@@ -61,6 +61,10 @@ export class VendorDetail {
           },
           error: (error) => {
             this.errorMessage.set('Error fetching the vendor');
+            if(error.error.redirectUrl)
+            {
+              this.router.navigate([error.error.redirectUrl]);
+            }
             console.error('There was an error!', error);
           }
         });

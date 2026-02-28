@@ -26,6 +26,10 @@ export class ProductList {
         next: (data ) => this.products.set(data),
         error: (error) => {
           this.errorMessage.set('Error fetching products.');
+          if(error.error.redirectUrl)
+          {
+            this.router.navigate([error.error.redirectUrl]);
+          }
           console.error('There was an error!', error);
         }
       });

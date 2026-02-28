@@ -1,6 +1,6 @@
 
 
-export interface ProductionlineModel
+export interface ProductionLineModel
 {
   plantID: number;
   productID: number;

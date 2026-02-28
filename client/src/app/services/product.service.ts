@@ -26,31 +26,31 @@ export class ProductService {
   }
 
   getProducts(): Observable<ProductModel[]> {
-    return this.http.get<ProductModel[]>(this.apiUrl);
+    return this.http.get<ProductModel[]>(this.apiUrl, this.getAuthHeaders());
   }
 
   getProductById(productCode : number) : Observable<ProductModel> {
 
 
-    return this.http.get<ProductModel>(`${this.apiUrl}/${productCode}`)
+    return this.http.get<ProductModel>(`${this.apiUrl}/${productCode}`, this.getAuthHeaders())
   }
 
   addProduct(product: ProductModel): Observable<ProductModel> {
-    return this.http.post<ProductModel>(this.apiUrl, product)
+    return this.http.post<ProductModel>(this.apiUrl, product, this.getAuthHeaders())
   }
 
   updateProduct(product: ProductModel) : Observable<ProductModel>
   {
     const escapeProductCode = encodeURIComponent(product.productID);
 
-    return this.http.put<ProductModel>(`${this.apiUrl}/${escapeProductCode}`, product);
+    return this.http.put<ProductModel>(`${this.apiUrl}/${escapeProductCode}`, product, this.getAuthHeaders());
   }
 
     deleteProduct(productCode: number) : Observable<void>
   {
     const escapedProductCode = encodeURIComponent(productCode);
 
-    return this.http.delete<void>(`${this.apiUrl}/${escapedProductCode}`);
+    return this.http.delete<void>(`${this.apiUrl}/${escapedProductCode}`, this.getAuthHeaders());
   }
 }
 

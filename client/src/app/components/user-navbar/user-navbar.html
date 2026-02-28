@@ -1,0 +1,27 @@
+<nav class="navbar nav navbar-expand-lg">
+  <div class="container-fluid">
+    <a class="navbar-brand"><img ngSrc="/LOB-logo.png" height="50" width="50" alt=""></a>
+
+    <button class="navbar-toggler" type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#navbar">
+      <span class="navbar-toggler-icon"></span>
+
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbar">
+      <div class="navbar-nav ms-auto nav-tabs">
+
+        <a routerLink="/login" routerLinkActive="active"
+           [routerLinkActiveOptions]="{exact: true}"
+           class="nav-link"
+           (click)="deleteToken()">
+          Log Out
+        </a>
+      </div>
+
+    </div>
+  </div>
+
+
+</nav>

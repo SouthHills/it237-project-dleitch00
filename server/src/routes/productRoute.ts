@@ -3,6 +3,7 @@ import {AppDataSource} from "../data-source.js";
 import {Product} from "../entities/Product.js";
 import {IProduct} from "../shared/IProduct.js";
 import {ProductionLine} from "../entities/ProductionLine.js";
+import {redirectNonAdmins} from "../utils/authentication.js";
 
 const router = Router();
 
@@ -22,7 +23,7 @@ router.get('/products', async(req, res) =>
     res.json(responseData);
 });
 
-router.get('/products/:id', async(req, res) =>
+router.get('/products/:id', redirectNonAdmins, async(req, res) =>
 {
     const id : number = parseInt(req.params.id);
     console.log(id);
@@ -46,7 +47,7 @@ router.get('/products/:id', async(req, res) =>
     res.json(responseData);
 });
 
-router.put('/products/:id', async(req, res) =>
+router.put('/products/:id', redirectNonAdmins, async(req, res) =>
 {
     const id : number = parseInt(req.params.id);
     const productData = req.body;
@@ -72,7 +73,7 @@ router.put('/products/:id', async(req, res) =>
     }
 });
 
-router.post('/products', async (req, res) =>
+router.post('/products', redirectNonAdmins, async (req, res) =>
 {
     const productData = req.body;
     console.log(productData);
@@ -109,7 +110,7 @@ router.post('/products', async (req, res) =>
     }
 });
 
-router.delete('/products/:id', async (req, res) =>
+router.delete('/products/:id', redirectNonAdmins, async (req, res) =>
 {
     const id = parseInt(req.params.id);
 

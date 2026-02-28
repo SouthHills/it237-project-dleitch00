@@ -12,116 +12,116 @@
         Employee Details: {{ employee()!.employeeFirstName }} {{employee()!.employeeLastName}}
       </h1>
     }
+    <form>
+      <div class="card w-75 mx-auto">
+        <div class="card-header">
+          <div class="row ">
+            <div class="col-3">
+              <label for="employee-id" class="form-label">Employee ID</label>
+              <input class="form-control" id="employee-id"
+                     name="employeeID"
+                     [(ngModel)]="modifiedEmployee()!.employeeID"/>
 
-    <form class="row gap-3">
-      <div class="col-2">
-        <label for="employee-id" class="form-label">Employee ID</label>
-        <input class="form-control" id="employee-id"
-               name="employeeID"
-               [(ngModel)]="modifiedEmployee()!.employeeID"/>
-      </div>
+            </div>
+            <div class="col-3 mx-auto">
+              <label for="employee-plant" class="form-label">Plant ID</label>
+              <input class="form-control" id="employee-plant"
+                     name="plant" type="number"
+                     [(ngModel)]="modifiedEmployee()!.plantID"/>
 
-      <div class="col-3">
-        <label for="employee-first" class="form-label">First Name</label>
-        <input class="form-control" id="employee-first"
-               name="first"
-               [(ngModel)]="modifiedEmployee()!.employeeFirstName"/>
-      </div>
+            </div>
 
-      <div class="col-3">
-        <label for="employee-last" class="form-label">Last Name</label>
-        <input class="form-control" id="employee-last"
-               name="last"
-               [(ngModel)]="modifiedEmployee()!.employeeLastName"/>
-      </div>
+          </div>
 
-      <div class="col-2">
-        <label for="employee-middle" class="form-label">Initial</label>
-        <input class="form-control" id="employee-middle"
-               name="middle"
-               [(ngModel)]="modifiedEmployee()!.employeeMiddleInitial"/>
-      </div>
+        </div>
+        <div class="row card-body">
+          <div class="col">
+            <label for="employee-first" class="form-label">First Name</label>
+            <input class="form-control" id="employee-first"
+                   name="first"
+                   [(ngModel)]="modifiedEmployee()!.employeeFirstName"/>
+          </div>
+          <div class="col">
+            <label for="employee-last" class="form-label">Last Name</label>
+            <input class="form-control" id="employee-last"
+                   name="last"
+                   [(ngModel)]="modifiedEmployee()!.employeeLastName"/>
+          </div>
+          <div class="col-2">
+            <label for="employee-middle" class="form-label">Initial</label>
+            <input class="form-control" id="employee-middle"
+                   name="middle"
+                   [(ngModel)]="modifiedEmployee()!.employeeMiddleInitial"/>
+          </div>
+          <div class="col">
+            <label for="employee-dob" class="form-label">Birth Date</label>
+            <input class="form-control" id="employee-dob"
+                   name="dob" type="date"
+                   [(ngModel)]="modifiedEmployee()!.employeeBirthday"/>
+          </div>
+          <div class="col">
+            <label for="employee-username" class="form-label">Username</label>
+            <input class="form-control" id="employee-username"
+                   name="username"
+                   [(ngModel)]="modifiedEmployee()!.employeeUsername"/>
+          </div>
+        </div>
+        <div class="row card-body">
+          <div class="col-2">
+            <label for="employee-job" class="form-label">Job Title</label>
+            <input class="form-control" id="employee-job"
+                   name="job"
+                   [(ngModel)]="modifiedEmployee()!.employeeJobTitle"/>
+          </div>
+          <div class="col-3">
+            <label for="employee-salary" class="form-label">Salary</label>
+            <input class="form-control" id="employee-salary"
+                   name="salary" type="number" step=".01" min="0"
+                   [(ngModel)]="modifiedEmployee()!.employeeSalary"/>
+          </div>
+          <div class="col-2">
+            <label for="employee-admin" class="form-label">Is Admin</label>
+            <input class="form-control" id="employee-admin"
+                   name="admin"
+                   [(ngModel)]="modifiedEmployee()!.employeeIsAdmin"/>
+          </div>
 
-      <div class="col-2">
-        <label for="employee-job" class="form-label">Job Title</label>
-        <input class="form-control" id="employee-job"
-               name="job"
-               [(ngModel)]="modifiedEmployee()!.employeeJobTitle"/>
-      </div>
-
-      <div class="col-3">
-        <label for="employee-salary" class="form-label">Salary</label>
-        <input class="form-control" id="employee-salary"
-               name="salary" type="number" step=".01" min="0"
-               [(ngModel)]="modifiedEmployee()!.employeeSalary"/>
-      </div>
-
-      <div class="col-2">
-        <label for="employee-dob" class="form-label">Birth Date</label>
-        <input class="form-control" id="employee-dob"
-               name="dob" type="date"
-               [(ngModel)]="modifiedEmployee()!.employeeBirthday"/>
-      </div>
-
-      <div class="col-3">
-        <label for="employee-username" class="form-label">Username</label>
-        <input class="form-control" id="employee-username"
-               name="username"
-               [(ngModel)]="modifiedEmployee()!.employeeUsername"/>
-      </div>
-
-      <div class="col-2">
-        <label for="employee-plant" class="form-label">Plant ID</label>
-        <input class="form-control" id="employee-plant"
-               name="plant" type="number"
-               [(ngModel)]="modifiedEmployee()!.plantID"/>
-      </div>
-
-      <div class="col-1">
-        <label for="employee-admin" class="form-label">Is Admin</label>
-        <input class="form-control" id="employee-admin"
-               name="admin"
-               [(ngModel)]="modifiedEmployee()!.employeeIsAdmin"/>
-      </div>
-
-      <div class="col-1">
-        <label for="employee-active" class="form-label">Is Active</label>
-        <input class="form-control" id="employee-active"
-               name="active"
-               [(ngModel)]="modifiedEmployee()!.employeeStatus"/>
-      </div>
-
-      <div class="col-3">
-        <label for="employee-password" class="form-label">Password</label>
-        <input class="form-control" id="employee-password"
-               name="password" type="password"
-               [(ngModel)]="modifiedEmployee()!.employeePassword"/>
-      </div>
+          <div class="col-2">
+            <label for="employee-active" class="form-label">Is Active</label>
+            <input class="form-control" id="employee-active"
+                   name="active"
+                   [(ngModel)]="modifiedEmployee()!.employeeStatus"/>
+          </div>
 
 
 
+        </div>
 
-      <hr class="my-4"/>
-      <h3 class="text-body">Actions</h3>
-      <div>
-        <button type="button"
-                class="btn btn-success m-2"
-                (click)="saveChanges()">{{ isNewEmployee() ? 'Create Employee' : 'Save Changes' }}</button>
+        <div class="card-footer">
+          <h3 class="text-body">Actions</h3>
+          <div>
+            <button type="button"
+                    class="btn btn-success m-2"
+                    (click)="saveChanges()">{{ isNewEmployee() ? 'Create Employee' : 'Save Changes' }}</button>
 
-        @if(!isNewEmployee())
-        {
-          <button type="button"
-                  class="btn btn-danger m-2"
-                  (click)="deleteEmployee()">
-            Delete Product
-          </button>
-        }
+            @if(!isNewEmployee())
+            {
+              <button type="button"
+                      class="btn btn-danger m-2"
+                      (click)="deleteEmployee()">
+                Delete Product
+              </button>
+            }
 
-        <button type="button" class="btn btn-warning m-2" (click)="discardChanges()">Discard Changes</button>
+            <button type="button" class="btn btn-warning m-2" (click)="discardChanges()">Discard Changes</button>
 
-        <a routerLink="/employees" class="btn btn-secondary m2">
-          Go Back
-        </a>
+            <a routerLink="/employees" class="btn btn-secondary m2">
+              Go Back
+            </a>
+          </div>
+
+
+        </div>
       </div>
     </form>
   }

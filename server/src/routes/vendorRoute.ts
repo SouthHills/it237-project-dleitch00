@@ -1,18 +1,19 @@
 import {Router} from "express";
 import {AppDataSource} from "../data-source.js";
 import {Vendor} from "../entities/Vendor.js";
+import {redirectNonAdmins} from "../utils/authentication.js";
 
 
 const router = Router();
 
-router.get('/vendors', async(req, res) =>
+router.get('/vendors', redirectNonAdmins,  async(req, res) =>
 {
     const vendors = await AppDataSource.getRepository(Vendor).find();
 
     res.json(vendors);
 });
 
-router.get('/vendors/:id', async(req, res) =>
+router.get('/vendors/:id', redirectNonAdmins, async(req, res) =>
 {
     const id : number = parseInt(req.params.id);
     console.log(id);
@@ -27,7 +28,7 @@ router.get('/vendors/:id', async(req, res) =>
     else res.json(vendor);
 });
 
-router.put('/vendors/:id', async(req, res) =>
+router.put('/vendors/:id', redirectNonAdmins, async(req, res) =>
 {
     const id : number = parseInt(req.params.id);
     const vendorData = req.body;
@@ -52,7 +53,7 @@ router.put('/vendors/:id', async(req, res) =>
     }
 });
 
-router.post('/vendors', async (req, res) =>
+router.post('/vendors', redirectNonAdmins, async (req, res) =>
 {
     const vendorData = req.body;
     console.log(vendorData);
@@ -90,7 +91,7 @@ router.post('/vendors', async (req, res) =>
     }
 });
 
-router.delete('/vendors/:id', async (req, res) =>
+router.delete('/vendors/:id', redirectNonAdmins, async (req, res) =>
 {
     const id = parseInt(req.params.id);
 

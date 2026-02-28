@@ -6,8 +6,8 @@ import {BlueprintModel} from '../models/blueprint.model';
 @Injectable({
   providedIn: 'root',
 })
-class BlueprintService {
-  private apiUrl = 'http://localhost:3000/blueprints';
+export class BlueprintService {
+  private apiUrl = 'http://localhost:3000';
 
 
   constructor(private http: HttpClient) {}
@@ -26,40 +26,31 @@ class BlueprintService {
   }
 
   getBlueprint(): Observable<BlueprintModel[]> {
-    return this.http.get<BlueprintModel[]>(this.apiUrl);
-
+    return this.http.get<BlueprintModel[]>(`${this.apiUrl}/blueprints`, this.getAuthHeaders());
   }
 
-  getBlueprintById(productID : string, componentID: string) : Observable<BlueprintModel> {
-    const escapedProductID = encodeURIComponent(productID);
-    const escapedcomponentID = encodeURIComponent(componentID);
+  getBlueprintById(productID: number, componentID: number) : Observable<BlueprintModel> {
+    const parameterString = `productID=${encodeURIComponent(productID)}&componentID=${encodeURIComponent(componentID)}`;
 
-    return this.http.get<BlueprintModel>(`${this.apiUrl}/${escapedProductID}&${escapedcomponentID}`)
-
+    return this.http.get<BlueprintModel>(`${this.apiUrl}/blueprint?${parameterString}`, this.getAuthHeaders())
   }
 
   addBlueprint(blueprint: BlueprintModel): Observable<BlueprintModel> {
-    return this.http.post<BlueprintModel>(this.apiUrl, blueprint);
-
+    return this.http.post<BlueprintModel>(`${this.apiUrl}/blueprints`, blueprint, this.getAuthHeaders());
   }
 
   updateBlueprint(blueprint: BlueprintModel) : Observable<BlueprintModel>
   {
-    const escapedProductID = encodeURIComponent(blueprint.productID);
-    const escapedcomponentID = encodeURIComponent(blueprint.componentID);
+    const parameterString = `productID=${encodeURIComponent(blueprint.productID)}&componentID=${encodeURIComponent(blueprint.componentID)}`;
 
-    return this.http.put<BlueprintModel>(`${this.apiUrl}/${escapedProductID}/${escapedcomponentID}`, blueprint);
-
+    return this.http.put<BlueprintModel>(`${this.apiUrl}/blueprint?${parameterString}`, blueprint, this.getAuthHeaders());
   }
 
-  deleteBlueprint(productID: string, componentID : string) : Observable<void>
+  deleteBlueprint(productID: number, componentID: number) : Observable<void>
   {
-    const escapedProductID = encodeURIComponent(productID);
-    const escapedcomponentID = encodeURIComponent(componentID);
+    const parameterString = `productID=${encodeURIComponent(productID)}&componentID=${encodeURIComponent(componentID)}`;
 
-
-    return this.http.delete<void>(`${this.apiUrl}/${escapedProductID}`);
-
+    return this.http.delete<void>(`${this.apiUrl}/blueprint?${parameterString}`, this.getAuthHeaders());
   }
 }
 

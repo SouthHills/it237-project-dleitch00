@@ -5,6 +5,10 @@ import {ProductService} from '../../../services/product.service';
 import {Toast} from 'bootstrap';
 import {FormsModule} from '@angular/forms';
 import {CurrencyPipe} from '@angular/common';
+import {ComponentModel} from '../../../models/component.model';
+import {BlueprintModel} from '../../../models/blueprint.model';
+import {ComponentService} from '../../../services/component.service';
+import {BlueprintService} from '../../../services/blueprint.service';
 
 @Component({
   selector: 'app-product-detail',
@@ -29,10 +33,15 @@ export class ProductDetail {
   // Route parameter stored as a signal
   productID = signal<string | null>(null);
 
+  components = signal<ComponentModel[]>([]);
+  blueprints = signal<BlueprintModel[]>([]);
+
   constructor(
     private route: ActivatedRoute,
     private productService: ProductService,
-    private router: Router
+    private router: Router,
+    private componentService: ComponentService,
+    private blueprintService: BlueprintService
   )
   {                       // snapshot of the route when requesting the object
     this.productID.set(this.route.snapshot.paramMap.get('id'));
@@ -63,10 +72,63 @@ export class ProductDetail {
             console.error('There was an error!', error);
           }
         });
+
+        this.componentService.getComponents().subscribe({
+          next: (data ) => {
+            console.log(data);
+            this.components.set(data)
+          },
+          error: (error) => {
+            console.error('There was an error!', error);
+            this.errorMessage.set('Error fetching components.');
+          }
+        });
+
+        this.blueprintService.getBlueprint().subscribe({
+          next: (data ) => {
+            console.log(data);
+            this.blueprints.set(data)
+          },
+          error: (error) => {
+            console.error('There was an error!', error);
+            this.errorMessage.set('Error fetching blueprints.');
+          }
+        });
+
       }
 
 
     });
+  }
+
+  viewBlueprintDetails(componentID: number): void
+  {
+    const productID = this.product()?.productID;
+    console.log(`Navigating to blueprint details with productID: ${productID} and componentID: ${componentID}`);
+
+
+    this.router.navigate(['/blueprint'], {queryParams: {productID, componentID}});
+  }
+
+  blueprintForCurrentProduct()
+  {
+
+    const currentProduct = this.product();
+    if(!currentProduct) return [];
+
+    const productBlueprints = this.blueprints().filter(bp => bp.productID === currentProduct.productID);
+    const componentIDs = productBlueprints.map(bp => bp.componentID);
+
+    return this.components().filter(component => componentIDs.includes(component.componentID));
+  }
+
+  amountOfComponentInProduct(componentID: number): number
+  {
+    const currentProduct = this.product();
+    if(!currentProduct) return 0;
+
+    const blueprint = this.blueprints().find(bp => bp.productID === currentProduct.productID && bp.componentID === componentID);
+    return blueprint ? blueprint.componentAmount : 0;
   }
 
   saveChanges(): void
@@ -113,6 +175,10 @@ export class ProductDetail {
           this.toastTitle.set('Error');
           this.toastMessage.set(this.errorMessage());
           this.showToast();
+          if(error.error.redirectUrl)
+          {
+            this.router.navigate([error.error.redirectUrl]);
+          }
         }
       });
 

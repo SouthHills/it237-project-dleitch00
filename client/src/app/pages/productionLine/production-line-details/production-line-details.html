@@ -1,0 +1,97 @@
+<main class="container">
+  @if (productionLine() || isNewProductionLine()) {
+
+    @if (isNewProductionLine()) {
+      <h1 class="mb-4 header">New Registration</h1>
+    } @else {
+      <h1 class="mb-4 header">
+        Production Line Details: Product {{ productionLine()!.productID }} / Plant {{ productionLine()!.plantID }}
+      </h1>
+    }
+
+    <form class="form-control mt-2 w-75 mx-auto">
+      <div class="card">
+        <div class="card-header">
+          <div class="row">
+            <div class="col">
+              <label for="product-id" class="card-title">Product ID</label>
+              <input class="form-control" id="product-id"
+                     name="productID" type="number"
+                     [(ngModel)]="modifiedProductionLine()!.productID"
+              />
+            </div>
+            <div class="col">
+              <label for="plant-id" class="card-title">Plant ID</label>
+              <input class="form-control" id="plant-id"
+                     name="plantID" type="number"
+                     [(ngModel)]="modifiedProductionLine()!.plantID"
+              />
+            </div>
+            <div class="col">
+              <label for="production-line-quantity" class="card-title">Quantity</label>
+              <input class="form-control" id="production-line-quantity"
+                      name="quantity"
+                      [(ngModel)]="modifiedProductionLine()!.productQuantity" />
+            </div>
+            <div class="col">
+              <label for="production-line-minimum" class="card-title">Minimum</label>
+              <input class="form-control" id="production-line-minimum"
+                     name="quantity"
+                     [(ngModel)]="modifiedProductionLine()!.productMinimum" />
+            </div>
+          </div>
+        </div>
+
+        <div class="card-footer">
+          <h3 class="text-white">Actions</h3>
+          <button
+            type="button"
+            class="btn btn-success m-2"
+            (click)="saveChanges()">
+            {{ isNewProductionLine() ? 'Create Production Line' : 'Save Changes' }}
+          </button>
+          @if (!isNewProductionLine()) {
+            <button type="button"
+                    class="btn btn-danger m-2"
+                    (click)="deleteProductionLine()">
+              Delete Production Line
+            </button>
+          }
+
+          <button type="button"
+                  class="btn btn-secondary m-2"
+                  (click)="discardChanges()">
+            Discard Changes
+          </button>
+
+          <a routerLink="/productionLines" class="btn btn-secondary m-2">
+            Back to Production Line List
+          </a>
+        </div>
+      </div>
+
+    </form>
+  }
+  @else if (errorMessage())
+  {
+    <p class="text-danger">{{ errorMessage() }}</p>
+  }
+  @else
+  {
+    <p>Loading production line details...</p>
+  }
+
+
+</main>
+
+<div class="toast-container position-fixed bottom-0 end-0 p-3">
+  <div id="toast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+    <div class="toast-header">
+      <strong class="me-auto">{{ toastTitle() }}</strong>
+      <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+    </div>
+    <div class="toast-body">
+      {{ toastMessage() }}
+    </div>
+  </div>
+</div>

@@ -12,79 +12,90 @@
         Vendor Details: {{ vendor()!.vendorName }}
       </h1>
     }
+    <form>
+      <div class="card">
+        <div class="card-header">
+          <div class="row">
+            <div class="col">
 
-    <form class="row gap-3">
-      <div class="col-4">
-        <label for="vendor-id" class="form-label">Vendor ID</label>
-        <input class="form-control" id="vendor-id"
-               name="vendorID" type="number"
-               [(ngModel)]="modifiedVendor()!.vendorID"/>
-      </div>
-
-      <div class="col-3">
-        <label for="vendor-name" class="form-label">Name</label>
-        <input class="form-control" id="vendor-name"
-               name="name"
-               [(ngModel)]="modifiedVendor()!.vendorName"/>
-      </div>
-
-      <div class="col-8">
-        <label for="vendor-specialization" class="form-label">Specialization</label>
-        <input class="form-control" id="vendor-specialization"
-               name="specialization"
-               [(ngModel)]="modifiedVendor()!.vendorSpecialization"/>
-      </div>
-
-      <div class="col-8">
-        <label for="vendor-nation" class="form-label">Nation</label>
-        <input class="form-control" id="vendor-nation"
-               name="nation"
-               [(ngModel)]="modifiedVendor()!.vendorHqNation"/>
-      </div>
-
-      <div class="col-3">
-        <label for="vendor-city" class="form-label">City</label>
-        <input class="form-control" id="vendor-city"
-               name="city"
-               [(ngModel)]="modifiedVendor()!.vendorHqCity"/>
-      </div>
-
-      <div class="col-3">
-        <label for="vendor-street" class="form-label">Street</label>
-        <input class="form-control" id="vendor-street"
-               name="price"
-               [(ngModel)]="modifiedVendor()!.vendorHqStreet"/>
-      </div>
-
-      <div class="col-3">
-        <label for="vendor-zip" class="form-label">Zip Code</label>
-        <input class="form-control" id="vendor-zip"
-               name="zip"
-               [(ngModel)]="modifiedVendor()!.vendorHqZIP"/>
-      </div>
+              <div class="col-4">
+                <label for="vendor-id" class="form-label">Vendor ID</label>
+                <input class="form-control" id="vendor-id"
+                       name="vendorID" type="number"
+                       [(ngModel)]="modifiedVendor()!.vendorID"/>
+              </div>
+            </div>
 
 
-      <hr class="my-4"/>
-      <h3 class="text-body">Actions</h3>
-      <div>
-        <button type="button"
-                class="btn btn-success m-2"
-                (click)="saveChanges()">{{ isNewVendor() ? 'Create Vendor' : 'Save Changes' }}</button>
+          </div>
 
-        @if(!isNewVendor())
-        {
-          <button type="button"
-                  class="btn btn-danger m-2"
-                  (click)="deleteVendor()">
-            Delete Vendor
-          </button>
-        }
+        </div>
+        <div class="row card-body">
+          <div class="col">
+            <label for="vendor-name" class="form-label">Name</label>
+            <input class="form-control" id="vendor-name"
+                   name="name"
+                   [(ngModel)]="modifiedVendor()!.vendorName"/>
+          </div>
+          <div class="col">
+            <label for="vendor-specialization" class="form-label">Specialization</label>
+            <input class="form-control" id="vendor-specialization"
+                   name="specialization"
+                   [(ngModel)]="modifiedVendor()!.vendorSpecialization"/>
+          </div>
+        </div>
+        <div class="row card-body">
+          <div class="col">
+            <label for="vendor-street" class="form-label">Street</label>
+            <input class="form-control" id="vendor-street"
+                   name="price"
+                   [(ngModel)]="modifiedVendor()!.vendorHqStreet"/>
+          </div>
+          <div class="col">
+            <label for="vendor-city" class="form-label">City</label>
+            <input class="form-control" id="vendor-city"
+                   name="city"
+                   [(ngModel)]="modifiedVendor()!.vendorHqCity"/>
+          </div>
+          <div class="col">
+            <label for="vendor-zip" class="form-label">Zip Code</label>
+            <input class="form-control" id="vendor-zip"
+                   name="zip"
+                   [(ngModel)]="modifiedVendor()!.vendorHqZIP"/>
+          </div>
+          <div class="col">
+            <label for="vendor-nation" class="form-label">Nation</label>
+            <input class="form-control" id="vendor-nation"
+                   name="nation"
+                   [(ngModel)]="modifiedVendor()!.vendorHqNation"/>
+          </div>
+        </div>
 
-        <button type="button" class="btn btn-warning m-2" (click)="discardChanges()">Discard Changes</button>
+        <div class="card-footer">
+          <h3 class="text-body">Actions</h3>
+          <div>
+            <button type="button"
+                    class="btn btn-success m-2"
+                    (click)="saveChanges()">{{ isNewVendor() ? 'Create Vendor' : 'Save Changes' }}</button>
 
-        <a routerLink="/vendors" class="btn btn-secondary m2">
-          Go Back
-        </a>
+            @if(!isNewVendor())
+            {
+              <button type="button"
+                      class="btn btn-danger m-2"
+                      (click)="deleteVendor()">
+                Delete Vendor
+              </button>
+            }
+
+            <button type="button" class="btn btn-warning m-2" (click)="discardChanges()">Discard Changes</button>
+
+            <a routerLink="/vendors" class="btn btn-secondary m2">
+              Go Back
+            </a>
+          </div>
+
+
+        </div>
       </div>
     </form>
   }
