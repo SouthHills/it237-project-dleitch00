@@ -1,9 +1,11 @@
 services:
   database:
     container_name: database
-    env_file: ".env"
-    image: mcr.microsoft.com/mssql/server:2022-latest
+    build:
+      context: .
+      dockerfile: database-dockerfile
     restart: unless-stopped
+    env_file: ".env"
     environment:
       ACCEPT_EULA: "Y"
       SA_PASSWORD: ${SA_PASSWORD}
@@ -12,13 +14,12 @@ services:
       - "1433:1433"
     volumes:
       - database_volume:/var/opt/mssql
-      - ./createDatabase.sql:/dockerfilestorage/createDatabase.sql
     healthcheck:
       test: ["CMD-SHELL", "/opt/mssql-tools18/bin/sqlcmd -C -S localhost -U sa -P \"$SA_PASSWORD\" -Q \"SELECT 1\" || exit 1"]
       interval: 5s
       timeout: 5s
       retries: 5
-      start_period: 15s
+      start_period: 25s 
 
   server:
     container_name: server
@@ -37,8 +38,6 @@ services:
       DB_USER: ${DB_USER}
       DB_PASSWORD: ${SA_PASSWORD}
       DB_NAME: ${DB_NAME}
-      
-     
 
   client:
     container_name: client
@@ -51,4 +50,3 @@ services:
 
 volumes:
   database_volume:
-
