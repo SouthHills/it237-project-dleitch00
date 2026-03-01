@@ -1,4 +1,3 @@
-
 import {DataSource} from "typeorm";
 import {Component} from "./entities/Component.js";
 import {Employee} from "./entities/Employee.js";
@@ -10,14 +9,15 @@ import {Blueprint} from "./entities/Blueprint.js";
 
 export const AppDataSource = new DataSource({
     type: "mssql",
-    host: "cloud-devops-fnl.database.windows.net", //127.0.0.1
-    port: 1433,
-    username: 'master',
-    password: 'AdminPwd123!!',
-    database: 'company',
+    host: process.env.DB_HOST, //127.0.0.1
+    port: 1433, //process.env.DB_PORT needs to be number, acts as string
+    username: process.env.DB_USER,
+    password: process.env.DB_PASSWORD,
+    database: process.env.DB_NAME,
     options: {
         encrypt: true,
         trustServerCertificate: true,
+        //only way i could make it work in docker
     },
     synchronize: false, // set to false in production
     logging: true,

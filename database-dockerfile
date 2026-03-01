@@ -1,0 +1,11 @@
+FROM mcr.microsoft.com/mssql/server:2022-latest
+
+USER root
+COPY entrypoint.sh /entrypoint.sh
+COPY createDatabase.sql /dockerfilestorage/createDatabase.sql
+
+
+RUN chmod +x /entrypoint.sh
+USER mssql
+
+ENTRYPOINT ["/entrypoint.sh"]

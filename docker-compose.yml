@@ -1,38 +1,52 @@
 services:
   database:
-    env_file: "webapplication/server/.env"
-    image: mysql:8.0
-    restart: unless-stopped  
+    container_name: database
+    build:
+      context: .
+      dockerfile: database-dockerfile
+    restart: unless-stopped
+    env_file: ".env"
     environment:
-      MYSQL_ROOT_PASSWORD: ${DB_ROOT_PASSWORD}
-      MYSQL_DATABASE: ${DB_NAME}
-      MYSQL_USER: ${DB_USER}
-      MYSQL_PASSWORD: ${DB_PASSWORD}
-    ports:                    
-      - "3306:3306"            
+      ACCEPT_EULA: "Y"
+      SA_PASSWORD: ${SA_PASSWORD}
+      MSSQL_PID: Express
+    ports:
+      - "1433:1433"
     volumes:
-      - database_volume:/var/lib/mysql
-
+      - database_volume:/var/opt/mssql
     healthcheck:
-      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      test: ["CMD-SHELL", "/opt/mssql-tools18/bin/sqlcmd -C -S localhost -U \"$DB_USER\" -P \"$SA_PASSWORD\" -Q \"SELECT 1\" || exit 1"]
       interval: 5s
       timeout: 5s
       retries: 5
-      start_period: 15s  
+      start_period: 25s 
 
   server:
-    build: webapplication/server/dockerfile
-    restart: unless-stopped  
+    container_name: server
+    env_file: ".env"
+    build:
+      context: .
+      dockerfile: server-dockerfile
+    restart: unless-stopped
     ports:
-      - "3000:80"
+      - "3000:3000"
     depends_on:
       database:
-        condition: service_healthy  
+        condition: service_healthy
     environment:
-      DB_HOST: database
+      DB_HOST: ${DB_HOST}
       DB_USER: ${DB_USER}
-      DB_PASSWORD: ${DB_PASSWORD}
+      DB_PASSWORD: ${SA_PASSWORD}
       DB_NAME: ${DB_NAME}
-      
+
+  client:
+    container_name: client
+    build:
+      context: .
+      dockerfile: client-dockerfile
+    restart: unless-stopped
+    ports:
+      - "8080:8080"
+
 volumes:
   database_volume:
