@@ -110,7 +110,7 @@ export class ProductDetail {
     this.router.navigate(['/blueprint'], {queryParams: {productID, componentID}});
   }
 
-  blueprintForCurrentProduct()
+  blueprintForCurrentProduct(): ComponentModel[]
   {
 
     const currentProduct = this.product();
