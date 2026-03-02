@@ -38,8 +38,7 @@ with the username `nonadmin`
 
 to close the docker containers use `docker compose down`
 > [!IMPORTANT]
-> Any changes you made will persist even after shutting down. if you wish to reset everything back to when you\
-downloaded the project, use `docker compose down -v`
+> Any changes you made will persist even after shutting down. if you wish to reset everything back to when you downloaded the project, use `docker compose down -v`
 
 
 
