@@ -15,7 +15,7 @@ Please ensure you have the following installed before following the steps, or el
 ## How to install 
 
 ### Linux
-1. open a terminal in the location you wish to have this project, and clone the repository with git\ 
+1. open a terminal in the location you wish to have this project, and clone the repository with git\
 `git clone https://github.com/SouthHills/it237-project-dleitch00.git`
 2. cd into the directory `cd ./it237-project-dleitch00`
 3. change the contents of the example.env file with a good password `nano example.env`
