@@ -11,13 +11,15 @@ import {ProductionLineModel} from '../../../models/productionline.model';
 import {ProductionLineService} from '../../../services/productionline.service';
 import {ProductService} from '../../../services/product.service';
 import {CurrencyPipe} from '@angular/common';
+import {Spinner} from '../../../components/loading/spinner/spinner';
 
 @Component({
   selector: 'app-plant-detail',
   imports: [
     FormsModule,
     RouterLink,
-    CurrencyPipe
+    CurrencyPipe,
+    Spinner
   ],
   templateUrl: './plant-detail.html',
   styleUrl: './plant-detail.css',

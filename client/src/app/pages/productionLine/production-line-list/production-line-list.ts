@@ -2,12 +2,15 @@ import {Component, effect, signal} from '@angular/core';
 import {ProductionLineModel} from '../../../models/productionline.model';
 import {ProductionLineService} from '../../../services/productionline.service';
 import {Router} from '@angular/router';
+import {Spinner} from '../../../components/loading/spinner/spinner';
+
 
 @Component({
   selector: 'app-production-line-list',
-  imports: [],
+  imports: [ Spinner ],
   templateUrl: './production-line-list.html',
   styleUrl: './production-line-list.css',
+  standalone: true
 })
 export class ProductionLineList
 {

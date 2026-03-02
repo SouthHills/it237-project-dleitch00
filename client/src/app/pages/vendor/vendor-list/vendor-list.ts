@@ -2,14 +2,14 @@ import {Component, effect, signal} from '@angular/core';
 import {Router} from '@angular/router';
 import {VendorModel} from '../../../models/vendor.model';
 import {VendorService} from '../../../services/vendor.service';
-import {CurrencyPipe} from '@angular/common';
+import {Spinner} from '../../../components/loading/spinner/spinner';
 
 @Component({
   selector: 'app-vendor-list',
-  imports: [
-  ],
+  imports: [Spinner],
   templateUrl: './vendor-list.html',
   styleUrl: './vendor-list.css',
+  standalone: true
 })
 export class VendorList {
   vendors = signal<VendorModel[]>([]);

@@ -1,18 +1,19 @@
 import {Component, effect, signal} from '@angular/core';
-import {ProductModel} from '../../../models/product.model';
-import {ProductService} from '../../../services/product.service';
 import {Router} from '@angular/router';
 import {ComponentModel} from '../../../models/component.model';
 import {ComponentService} from '../../../services/component.service';
 import {CurrencyPipe} from '@angular/common';
+import {Spinner} from '../../../components/loading/spinner/spinner';
 
 @Component({
   selector: 'app-component-list',
   imports: [
-    CurrencyPipe
+    CurrencyPipe,
+    Spinner
   ],
   templateUrl: './component-list.html',
   styleUrl: './component-list.css',
+  standalone: true
 })
 export class ComponentList {
   components = signal<ComponentModel[]>([]);
