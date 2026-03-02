@@ -11,3 +11,5 @@ RUN npm install
 EXPOSE 3000
 
 CMD ["node", "--loader", "ts-node/esm", "src/server.ts"]
+
+RUN echo "server started at http://localhost:3000/"

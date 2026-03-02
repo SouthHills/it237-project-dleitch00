@@ -1,0 +1,12 @@
+FROM httpd
+
+
+RUN sudo apt install nodejs npm -y
+WORKDIR /app
+COPY client /app
+RUN npm install
+RUN npm run build
+COPY /dist/client/browser /var/www/
+
+
+
