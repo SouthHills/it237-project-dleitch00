@@ -8,9 +8,5 @@ RUN npm install
 RUN npm run build
 COPY /dist/client/browser /var/www/
 
-WORKDIR /var/www
-CMD http-server -p 8080
-
-RUN echo "client started at http://localhost:8080/"
 
 
