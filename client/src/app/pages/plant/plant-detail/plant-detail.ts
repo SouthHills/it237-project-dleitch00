@@ -10,15 +10,18 @@ import {ProductModel} from '../../../models/product.model';
 import {ProductionLineModel} from '../../../models/productionline.model';
 import {ProductionLineService} from '../../../services/productionline.service';
 import {ProductService} from '../../../services/product.service';
+import {CurrencyPipe} from '@angular/common';
 
 @Component({
   selector: 'app-plant-detail',
   imports: [
     FormsModule,
-    RouterLink
+    RouterLink,
+    CurrencyPipe
   ],
   templateUrl: './plant-detail.html',
   styleUrl: './plant-detail.css',
+  standalone: true
 })
 export class PlantDetail {
   plant = signal<PlantModel | null>(null);
@@ -146,6 +149,34 @@ export class PlantDetail {
       .map(pl => pl.productID);
 
     return products.filter(p => productionLineIDs.includes(p.productID));
+  }
+
+  getProductQuantity(productID: number): number
+  {
+    const currentPlant = this.plant();
+    const productionLines = this.productionLines();
+
+    if (!currentPlant || productionLines.length === 0) return 0;
+
+    const productionLine = productionLines.find(pl => pl.plantID === currentPlant.plantID && pl.productID === productID);
+
+    return productionLine ? productionLine.productQuantity : 0;
+  }
+
+  getMinimumQuantity(productID: number): number
+  {
+    const currentPlant = this.plant();
+    const productionLines = this.productionLines();
+
+    if (!currentPlant || productionLines.length === 0) return 0;
+
+    const productionLine = productionLines.find(pl => pl.plantID === currentPlant.plantID && pl.productID === productID);
+
+    return productionLine ? productionLine.productMinimum : 0;
+  }
+
+  viewProductDetails(productID: number){
+    this.router.navigate(['/products', productID])
   }
 
   saveChanges(): void

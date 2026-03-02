@@ -23,7 +23,7 @@ router.get('/products', async(req, res) =>
     res.json(responseData);
 });
 
-router.get('/products/:id', redirectNonAdmins, async(req, res) =>
+router.get('/products/:id', async(req, res) =>
 {
     const id : number = parseInt(req.params.id);
     console.log(id);

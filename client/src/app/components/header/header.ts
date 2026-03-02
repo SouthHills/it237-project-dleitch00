@@ -8,6 +8,7 @@ import {NgOptimizedImage} from '@angular/common';
   ],
   templateUrl: './header.html',
   styleUrl: './header.css',
+  standalone: true
 })
 export class Header {
 

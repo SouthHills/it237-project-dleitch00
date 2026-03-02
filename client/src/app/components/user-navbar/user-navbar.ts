@@ -4,13 +4,14 @@ import {RouterLink, RouterLinkActive} from "@angular/router";
 
 @Component({
   selector: 'app-user-navbar',
-    imports: [
-        NgOptimizedImage,
-        RouterLink,
-        RouterLinkActive
-    ],
+  imports: [
+    NgOptimizedImage,
+    RouterLink,
+    RouterLinkActive
+  ],
   templateUrl: './user-navbar.html',
   styleUrl: './user-navbar.css',
+  standalone: true
 })
 export class UserNavbar {
 

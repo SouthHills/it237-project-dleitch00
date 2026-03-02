@@ -12,6 +12,7 @@ import {FormsModule} from '@angular/forms';
   ],
   templateUrl: './production-line-details.html',
   styleUrl: './production-line-details.css',
+  standalone: true
 })
 export class ProductionLineDetails {
   productionLine = signal<ProductionLineModel | null>(null);

@@ -1,7 +1,7 @@
 table {
   width: 100%;
   border-collapse: collapse;
-
+  max-height: 1000px;
 }
 .table-rounded
 {
@@ -20,11 +20,13 @@ tbody td {
   vertical-align: middle;
 }
 
-table.table-striped tbody tr:hover {
-  background-color: #f0e6ff !important;
+tbody tr:hover {
   cursor: pointer;
-  transition: background-color 0.2s ease;
 }
+
+
+
+
 
 
 
