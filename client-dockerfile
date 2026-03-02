@@ -1,12 +1,14 @@
-FROM node:22.22.0
+FROM httpd
 
+
+RUN sudo apt install nodejs npm -y
 WORKDIR /app
 COPY client /app
 RUN npm install
 RUN npm run build
-RUN npm install -g http-server
+COPY /dist/client/browser /var/www/
 
-WORKDIR dist/client/browser
+WORKDIR /var/www
 CMD http-server -p 8080
 
 RUN echo "client started at http://localhost:8080/"
