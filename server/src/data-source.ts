@@ -8,13 +8,16 @@ import {Vendor} from "./entities/Vendor.js";
 import {ProductionLine} from "./entities/ProductionLine.js";
 import {Blueprint} from "./entities/Blueprint.js";
 
+import {loadEnvFile} from 'node:process';
+loadEnvFile('./.env');
+
 export const AppDataSource = new DataSource({
     type: "mssql",
-    host: "cloud-devops-fnl.database.windows.net", //127.0.0.1
+    host: process.env.DB_HOST, //127.0.0.1
     port: 1433,
-    username: 'master',
-    password: 'AdminPwd123!!',
-    database: 'company',
+    username: process.env.DB_USER,
+    password: process.env.SA_PASSWORD,
+    database: process.env.DB_NAME,
     options: {
         encrypt: true,
         trustServerCertificate: true,
