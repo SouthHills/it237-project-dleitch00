@@ -1,5 +1,6 @@
-# Employee Management System
-describe project
+![image of our company banner](client/public/LOB-banner.jpg)
+# Coporate Inventory Management System
+This project is an inventory and employee management system designed for the company LOB which produces computer micro components. It features the ability to register users and update their information while keeping track of which employees work at which plants along with the ability to update and change inventory securely. It's built with Node.js, angular, and typescript. 
 ## Prerequisites
 Please ensure you have the following installed before following the steps, or else it will not run
 ### Linux 
