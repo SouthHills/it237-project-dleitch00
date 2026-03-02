@@ -9,15 +9,18 @@ import {ComponentModel} from '../../../models/component.model';
 import {BlueprintModel} from '../../../models/blueprint.model';
 import {ComponentService} from '../../../services/component.service';
 import {BlueprintService} from '../../../services/blueprint.service';
+import {Spinner} from '../../../components/loading/spinner/spinner';
 
 @Component({
   selector: 'app-product-detail',
   imports: [
     FormsModule,
     RouterLink,
+    Spinner
   ],
   templateUrl: './product-detail.html',
   styleUrl: './product-detail.css',
+  standalone: true
 })
 export class ProductDetail {
   product = signal<ProductModel | null>(null);

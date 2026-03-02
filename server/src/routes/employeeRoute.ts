@@ -6,6 +6,7 @@ import {hashPassword, comparePasswords, generateToken, redirectNonAdmins} from "
 
 const router = Router();
 
+// endpoint for getting a list of all employees from the database
 router.get('/employees', async(req, res) =>
 {
     const employees = await AppDataSource.getRepository(Employee).find();
@@ -48,7 +49,6 @@ router.put('/employees/register', async (req, res) =>
         res.status(500).json({ message: 'Error updating password.', error });
     }
 });
-
 router.post('/employees/login', async (req, res) =>
 {
     const { employeeUsername, employeePassword } = req.body;
@@ -68,6 +68,12 @@ router.post('/employees/login', async (req, res) =>
         if (!employee)
         {
             res.status(404).json({ message: "Employee not found with the provided username." });
+            return;
+        }
+
+        if (!employee.employeePassword)
+        {
+            res.status(401).json({ message: "Password not set. Please register first." });
             return;
         }
 
@@ -148,7 +154,6 @@ router.post('/employees', redirectNonAdmins, async (req, res) =>
 
 
     const requiredFields = [
-        'employeeID',
         'employeeJobTitle',
         'employeeStatus',
         'employeeIsAdmin',
@@ -157,20 +162,25 @@ router.post('/employees', redirectNonAdmins, async (req, res) =>
         'employeeLastName',
         'employeeSalary',
         'employeeBirthday',
-        'employeeUsername',
-        'plantID'
+        'employeeUsername'
     ];
 
     if (requiredFields.some(field => employeeData[field] == undefined || employeeData[field] === null))
     {
-        res.status(400).json({message: "Values are required for all attributes"});
+        res.status(400).json({message: "Values are required for all attributes except password, plant id and token"});
+        return;
     }
 
     const employeeRepository = AppDataSource.getRepository(Employee);
 
     try
     {
-        const newEmployee = employeeRepository.create(employeeData);
+        const newEmployee = employeeRepository.create({
+            ...employeeData,
+            employeePassword: employeeData.employeePassword ?? null,
+            employeeToken: employeeData.employeeToken ?? null,
+            plantID: employeeData.plantID ?? null,
+        });
 
         const savedEmployee = await employeeRepository.save(newEmployee);
 

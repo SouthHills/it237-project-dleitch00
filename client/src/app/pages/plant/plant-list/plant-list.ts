@@ -3,16 +3,19 @@ import {Router} from '@angular/router';
 import {PlantModel} from '../../../models/plant.model';
 import {PlantService} from '../../../services/plant.service';
 import {CurrencyPipe} from '@angular/common';
+import {Spinner} from '../../../components/loading/spinner/spinner';
 
 
 
 @Component({
   selector: 'app-plant-list',
   imports: [
-    CurrencyPipe
+    CurrencyPipe,
+    Spinner
   ],
   templateUrl: './plant-list.html',
   styleUrl: './plant-list.css',
+  standalone: true
 })
 export class PlantList {
   plants = signal<PlantModel[]>([]);

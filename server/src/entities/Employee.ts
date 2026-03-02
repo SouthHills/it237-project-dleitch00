@@ -34,8 +34,8 @@ export class Employee
     @Column({name: "EMP_USERNAME", type: "varchar", length:30})
     employeeUsername!: string;
 
-    @Column({name: "EMP_PASSWORD", type: "varchar", length:100})
-    employeePassword!: string;
+    @Column({name: "EMP_PASSWORD", type: "varchar", length:100, nullable: true})
+    employeePassword!: string | null;
 
     @Column({name: "PLANT_ID", type: "int", nullable: true})
     plantID!: number | null;

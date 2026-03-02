@@ -81,7 +81,6 @@ export class EmployeeDetail {
     if (this.isNewEmployee())
     {
       if (
-        !currentEmployee.employeeID ||
         !currentEmployee.employeeStatus ||
         currentEmployee.employeeSalary === undefined ||
         currentEmployee.employeeSalary === null ||
@@ -90,10 +89,8 @@ export class EmployeeDetail {
         !currentEmployee.employeeLastName ||
         !currentEmployee.employeeMiddleInitial ||
         !currentEmployee.employeeJobTitle ||
-        !currentEmployee.employeeStatus ||
         !currentEmployee.employeeIsAdmin ||
-        !currentEmployee.employeeUsername ||
-        !currentEmployee.employeePassword
+        !currentEmployee.employeeUsername
       )
       {
         this.errorMessage.set('Values are required for all attributes except Plant ID');
@@ -103,7 +100,9 @@ export class EmployeeDetail {
         return;
       }
 
-      this.employeeService.addEmployee(currentEmployee).subscribe({
+      const { employeeID, employeeToken, employeePassword, ...employeePayload } = currentEmployee;
+
+      this.employeeService.addEmployee(employeePayload as EmployeeModel).subscribe({
         next: (newEmployee) =>
         {
           this.toastTitle.set('Employee information');

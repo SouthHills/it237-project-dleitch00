@@ -11,6 +11,7 @@ import {NgOptimizedImage} from '@angular/common';
   ],
   templateUrl: './navbar.html',
   styleUrl: './navbar.css',
+  standalone: true
 })
 export class Navbar {
   deleteToken(): void

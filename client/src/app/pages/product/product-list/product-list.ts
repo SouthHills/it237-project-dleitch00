@@ -3,14 +3,17 @@ import {ProductModel} from '../../../models/product.model';
 import {ProductService} from '../../../services/product.service';
 import {Router} from '@angular/router';
 import {CurrencyPipe} from '@angular/common';
+import {Spinner} from '../../../components/loading/spinner/spinner';
 
 @Component({
   selector: 'app-product-list',
   imports: [
-    CurrencyPipe
+    CurrencyPipe,
+    Spinner
   ],
   templateUrl: './product-list.html',
   styleUrl: './product-list.css',
+  standalone: true
 })
 export class ProductList {
   products = signal<ProductModel[]>([]);
