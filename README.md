@@ -1,7 +1,7 @@
 # Employee Management System
 describe project
 ## Prerequisites
-
+Please ensure you have the following installed before following the steps, or else it will not run
 ### Linux 
 1. docker
 2. docker compose
@@ -16,7 +16,7 @@ describe project
 
 ### Linux
 1. open a terminal in the location you wish to have this project, and clone the repository with git 
-`git clone https://github.com/SouthHills/it237-project-dleitch00.git `
+`git clone https://github.com/SouthHills/it237-project-dleitch00.git`
 2. cd into the directory `cd ./it237-project-dleitch00`
 3. change the contents of the example.env file with a good password `nano example.env`
 4. rename the example.env file to .env `mv example.env .env`
