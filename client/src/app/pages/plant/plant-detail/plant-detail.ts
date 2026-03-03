@@ -86,7 +86,6 @@ export class PlantDetail {
         });
         this.employeeService.getEmployees().subscribe({
           next: (data ) => {
-            console.log(data);
             this.employees.set(data)
           },
           error: (error) => {
@@ -103,7 +102,6 @@ export class PlantDetail {
 
         this.productionLineService.getProductionLines().subscribe({
           next: (data ) => {
-            console.log(data);
             this.productionLines.set(data)
           },
           error: (error) => {
@@ -114,7 +112,6 @@ export class PlantDetail {
 
         this.productService.getProducts().subscribe({
           next: (data ) => {
-            console.log(data);
             this.products.set(data)
           },
           error: (error) => {

@@ -15,6 +15,7 @@ import {FormsModule} from '@angular/forms';
   ],
   templateUrl: './employee-detail.html',
   styleUrl: './employee-detail.css',
+  standalone: true
 })
 export class EmployeeDetail {
   employee = signal<EmployeeModel | null>(null);
@@ -87,9 +88,9 @@ export class EmployeeDetail {
         !currentEmployee.employeeBirthday ||
         !currentEmployee.employeeFirstName ||
         !currentEmployee.employeeLastName ||
-        !currentEmployee.employeeMiddleInitial ||
         !currentEmployee.employeeJobTitle ||
-        !currentEmployee.employeeIsAdmin ||
+        currentEmployee.employeeIsAdmin === undefined ||
+        currentEmployee.employeeIsAdmin === null ||
         !currentEmployee.employeeUsername
       )
       {
@@ -174,7 +175,7 @@ export class EmployeeDetail {
         this.errorMessage.set('Error deleting the employee.')
         this.toastTitle.set('Error');
         this.toastMessage.set(
-          this.errorMessage() + ' (Is it being referenced by another entity?)0'
+          this.errorMessage() + ' (Is it being referenced by another entity?)'
         );
         this.showToast();
       }

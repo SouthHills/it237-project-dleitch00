@@ -44,4 +44,84 @@ export class ProductList {
     this.router.navigate(['/products', productID])
   }
 
+  idSort = false;
+
+  sortID()
+  {
+     if (this.idSort)
+     {
+      const sortedProducts = [...this.products()].sort((a, b) => b.productID - a.productID);
+      this.products.set(sortedProducts);
+      this.idSort = false;
+      return;
+     }
+      const sortedProducts = [...this.products()].sort((a, b) => a.productID - b.productID);
+      this.idSort = true;
+      this.products.set(sortedProducts);
+  }
+
+  nameSort = false;
+
+  sortName()
+  {
+    if (this.nameSort)
+    {
+      const sortedProducts = [...this.products()].sort((a, b) => b.productName.localeCompare(a.productName));
+      this.products.set(sortedProducts);
+      this.nameSort = false;
+      return;
+    }
+    const sortedProducts = [...this.products()].sort((a, b) => a.productName.localeCompare(b.productName));
+    this.nameSort = true;
+    this.products.set(sortedProducts);
+  }
+
+  priceSort = false;
+
+  sortPrice()
+  {
+    if (this.priceSort)
+    {
+      const sortedProducts = [...this.products()].sort((a, b) => b.productPrice - a.productPrice);
+      this.products.set(sortedProducts);
+      this.priceSort = false;
+      return;
+    }
+    const sortedProducts = [...this.products()].sort((a, b) => a.productPrice - b.productPrice);
+    this.priceSort = true;
+    this.products.set(sortedProducts);
+  }
+
+  producedSort = false;
+
+  sortProduced()
+  {
+    if (this.producedSort)
+    {
+      const sortedProducts = [...this.products()].sort((a, b) => b.productProduced.localeCompare(a.productProduced));
+      this.products.set(sortedProducts);
+      this.producedSort = false;
+      return;
+    }
+    const sortedProducts = [...this.products()].sort((a, b) => a.productProduced.localeCompare(b.productProduced));
+    this.producedSort = true;
+    this.products.set(sortedProducts);
+  }
+
+  descriptionSort = false;
+
+  sortDescription()
+  {
+    if (this.descriptionSort)
+    {
+      const sortedProducts = [...this.products()].sort((a, b) => b.productDescription.localeCompare(a.productDescription));
+      this.products.set(sortedProducts);
+      this.descriptionSort = false;
+      return;
+    }
+    const sortedProducts = [...this.products()].sort((a, b) => a.productDescription.localeCompare(b.productDescription));
+    this.descriptionSort = true;
+    this.products.set(sortedProducts);
+  }
+
 }

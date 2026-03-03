@@ -39,9 +39,12 @@
           </div>
           <div class="col-2">
             <label for="product-produced" class="form-label">Product Produced</label>
-            <input class="form-control" id="product-produced"
+            <select class="form-select" id="product-produced"
                    name="produced"
-                   [(ngModel)]="modifiedProduct()!.productProduced"/>
+                   [(ngModel)]="modifiedProduct()!.productProduced">
+              <option [ngValue]="true">Yes</option>
+              <option [ngValue]="false">No</option>
+            </select>
           </div>
 
         </div>

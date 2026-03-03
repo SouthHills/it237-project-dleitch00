@@ -64,9 +64,12 @@
           </div>
           <div class="col">
             <label for="plant-status" class="form-label">Status</label>
-            <input class="form-control" id="plant-status"
+            <select class="form-select" id="plant-status"
                    name="status"
-                   [(ngModel)]="modifiedPlant()!.plantStatus"/>
+                    [(ngModel)]="modifiedPlant()!.plantStatus">
+              <option [ngValue]="'Y'">Active</option>
+              <option [ngValue]="'N'">Inactive</option>
+            </select>
           </div>
         </div>
 

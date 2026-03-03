@@ -81,16 +81,22 @@
           </div>
           <div class="col-2">
             <label for="employee-admin" class="form-label">Is Admin</label>
-            <input class="form-control" id="employee-admin"
+            <select class="form-select" id="employee-admin"
                    name="admin"
-                   [(ngModel)]="modifiedEmployee()!.employeeIsAdmin"/>
+                    [(ngModel)]="modifiedEmployee()!.employeeIsAdmin">
+              <option [ngValue]="'Y'">Yes</option>
+              <option [ngValue]="'N'">No</option>
+            </select>
           </div>
 
           <div class="col-2">
             <label for="employee-active" class="form-label">Is Active</label>
-            <input class="form-control" id="employee-active"
+            <select class="form-select" id="employee-active"
                    name="active"
-                   [(ngModel)]="modifiedEmployee()!.employeeStatus"/>
+                   [(ngModel)]="modifiedEmployee()!.employeeStatus">
+              <option [ngValue]="'Y'">Yes</option>
+              <option [ngValue]="'N'">No</option>
+            </select>
           </div>
 
 
@@ -109,7 +115,7 @@
               <button type="button"
                       class="btn btn-danger m-2"
                       (click)="deleteEmployee()">
-                Delete Product
+                Delete Employee
               </button>
             }
 
