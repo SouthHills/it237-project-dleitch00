@@ -17,17 +17,17 @@
       <th colspan="11" class="fs-2">Employees</th>
     </tr>
     <tr>
-      <th>ID</th>
-      <th>First Name</th>
-      <th>Last Name</th>
-      <th>Middle Initial</th>
-      <th>Job Title</th>
-      <th>Salary</th>
-      <th>Date of Birth</th>
-      <th>Active</th>
-      <th>Username</th>
-      <th>Plant ID</th>
-      <th>Admin</th>
+      <th (click)="sortID()">ID</th>
+      <th (click)="sortFirstName()">First Name</th>
+      <th (click)="sortLastName()">Last Name</th>
+      <th (click)="sortInitial()">Middle Initial</th>
+      <th (click)="sortJob()">Job Title</th>
+      <th (click)="sortSalary()">Salary</th>
+      <th (click)="sortDOB()">Date of Birth</th>
+      <th (click)="sortActive()">Active</th>
+      <th (click)="sortUsername()">Username</th>
+      <th (click)="sortPlantID()">Plant ID</th>
+      <th (click)="sortAdmin()">Admin</th>
     </tr>
     </thead>
     <tbody>
@@ -39,7 +39,7 @@
           <td>{{ employee.employeeLastName}}</td>
           <td>{{ employee.employeeMiddleInitial}}</td>
           <td>{{ employee.employeeJobTitle}}</td>
-          <td>{{ employee.employeeSalary}}</td>
+          <td>{{ employee.employeeSalary | currency}}</td>
           <td>{{ employee.employeeBirthday}}</td>
           <td>{{ employee.employeeStatus}}</td>
           <td>{{ employee.employeeUsername}}</td>

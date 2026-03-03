@@ -44,4 +44,100 @@ export class ComponentList {
     this.router.navigate(['/components', componentID])
   }
 
+  idSort = false;
+
+  sortID()
+  {
+     if (this.idSort)
+     {
+      const sortedComponents = [...this.components()].sort((a, b) => b.componentID - a.componentID);
+      this.components.set(sortedComponents);
+      this.idSort = false;
+      return;
+     }
+      const sortedComponents = [...this.components()].sort((a, b) => a.componentID - b.componentID);
+      this.idSort = true;
+      this.components.set(sortedComponents);
+  }
+
+  nameSort = false;
+
+  sortName()
+  {
+    if (this.nameSort)
+    {
+      const sortedComponents = [...this.components()].sort((a, b) => b.componentName.localeCompare(a.componentName));
+      this.components.set(sortedComponents);
+      this.nameSort = false;
+      return;
+    }
+    const sortedComponents = [...this.components()].sort((a, b) => a.componentName.localeCompare(b.componentName));
+    this.nameSort = true;
+    this.components.set(sortedComponents);
+   }
+
+   descriptionSort = false;
+
+   sortDescription()
+   {
+     if (this.descriptionSort)
+     {
+       const sortedComponents = [...this.components()].sort((a, b) => b.componentDescription.localeCompare(a.componentDescription));
+       this.components.set(sortedComponents);
+       this.descriptionSort = false;
+       return;
+     }
+     const sortedComponents = [...this.components()].sort((a, b) => a.componentDescription.localeCompare(b.componentDescription));
+     this.descriptionSort = true;
+     this.components.set(sortedComponents);
+   }
+
+   minimumStockSort = false;
+
+   sortMinimumStock()
+   {
+     if (this.minimumStockSort)
+     {
+       const sortedComponents = [...this.components()].sort((a, b) => b.componentMinimumQuantity - a.componentMinimumQuantity);
+       this.components.set(sortedComponents);
+       this.minimumStockSort = false;
+       return;
+     }
+     const sortedComponents = [...this.components()].sort((a, b) => a.componentMinimumQuantity - b.componentMinimumQuantity);
+     this.minimumStockSort = true;
+     this.components.set(sortedComponents);
+   }
+
+   priceSort = false;
+
+   sortPrice()
+   {
+     if (this.priceSort)
+     {
+       const sortedComponents = [...this.components()].sort((a, b) => b.componentPrice - a.componentPrice);
+       this.components.set(sortedComponents);
+       this.priceSort = false;
+       return;
+     }
+     const sortedComponents = [...this.components()].sort((a, b) => a.componentPrice - b.componentPrice);
+     this.priceSort = true;
+     this.components.set(sortedComponents);
+   }
+
+   vendorIDSort = false;
+
+   sortVendorID()
+   {
+     if (this.vendorIDSort)
+     {
+       const sortedComponents = [...this.components()].sort((a, b) => b.vendorID - a.vendorID);
+       this.components.set(sortedComponents);
+       this.vendorIDSort = false;
+       return;
+     }
+     const sortedComponents = [...this.components()].sort((a, b) => a.vendorID - b.vendorID);
+     this.vendorIDSort = true;
+     this.components.set(sortedComponents);
+   }
+
 }

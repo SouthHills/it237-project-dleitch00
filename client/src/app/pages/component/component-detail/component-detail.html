@@ -27,10 +27,12 @@
 
 
               <div class="col">
-                <label for="component-name" class="form-label">Component Name</label>
-                <input class="form-control" id="component-indate"
-                       name="name"
-                       [(ngModel)]="modifiedComponent()!.componentName"/>
+                <label for="vendor-id" class="form-label">Vendor ID</label>
+                <input class="form-control" id="vendor-id"
+                       name="vendor-id" type="number"
+                       [(ngModel)]="modifiedComponent()!.vendorID"/>
+
+
               </div>
 
 
@@ -40,6 +42,13 @@
 
         </div>
         <div class="row card-body">
+          <div class="col-3">
+            <label for="component-name" class="form-label">Component Name</label>
+            <input class="form-control" id="component-indate"
+                   name="name"
+                   [(ngModel)]="modifiedComponent()!.componentName"/>
+          </div>
+
             <div class="col-3">
               <label for="component-price" class="form-label">Price</label>
               <input class="form-control" id="component-price"
@@ -55,12 +64,7 @@
                      [(ngModel)]="modifiedComponent()!.componentMinimumQuantity"/>
             </div>
 
-            <div class="col-3">
-              <label for="vendor-id" class="form-label">Vendor ID</label>
-              <input class="form-control" id="vendor-id"
-                     name="vendor-id" type="number"
-                     [(ngModel)]="modifiedComponent()!.vendorID"/>
-            </div>
+
 
 
         </div>

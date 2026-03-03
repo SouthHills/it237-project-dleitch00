@@ -158,7 +158,6 @@ router.post('/employees', redirectNonAdmins, async (req, res) =>
         'employeeStatus',
         'employeeIsAdmin',
         'employeeFirstName',
-        'employeeMiddleInitial',
         'employeeLastName',
         'employeeSalary',
         'employeeBirthday',
@@ -167,7 +166,7 @@ router.post('/employees', redirectNonAdmins, async (req, res) =>
 
     if (requiredFields.some(field => employeeData[field] == undefined || employeeData[field] === null))
     {
-        res.status(400).json({message: "Values are required for all attributes except password, plant id and token"});
+        res.status(400).json({message: "Values are required for all attributes except password, plant id, initial and token"});
         return;
     }
 

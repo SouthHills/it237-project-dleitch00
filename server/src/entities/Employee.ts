@@ -19,8 +19,8 @@ export class Employee
     @Column({name: "EMP_FIRST_NAME", type: "varchar", length:64})
     employeeFirstName!: string;
 
-    @Column({name: "EMP_MIDDLE_INITIAL", type: "char", length: 1})
-    employeeMiddleInitial!: string;
+    @Column({name: "EMP_MIDDLE_INITIAL", type: "char", length: 1, nullable: true})
+    employeeMiddleInitial!: string | null;
 
     @Column({name: "EMP_LAST_NAME", type: "varchar", length:64})
     employeeLastName!: string;

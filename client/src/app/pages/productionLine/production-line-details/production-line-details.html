@@ -2,7 +2,7 @@
   @if (productionLine() || isNewProductionLine()) {
 
     @if (isNewProductionLine()) {
-      <h1 class="mb-4 header">New Registration</h1>
+      <h1 class="mb-4 header">New Production</h1>
     } @else {
       <h1 class="mb-4 header">
         Production Line Details: Product {{ productionLine()!.productID }} / Plant {{ productionLine()!.plantID }}
