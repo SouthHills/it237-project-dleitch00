@@ -1,0 +1,11 @@
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  # Set the base URL for the application
+  RewriteBase /
+  # Exclude existing files and directories from the rewrite rule
+  RewriteCond %{REQUEST_FILENAME} !-f
+  RewriteCond %{REQUEST_FILENAME} !-d
+  # Redirect all other requests to index.html to handle client-side routing
+  RewriteRule . /index.html [L]
+</IfModule>
+
