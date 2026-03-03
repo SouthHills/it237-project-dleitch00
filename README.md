@@ -2,6 +2,7 @@
 # Coporate Inventory Management System
 This project is an inventory and employee management system designed for the company LOB which produces computer micro components. It features the ability to register users and update their information while keeping track of which employees work at which plants along with the ability to update and change inventory securely. It's built with Node.js, angular, and typescript. 
 ## Prerequisites
+
 Please ensure you have the following installed before following the steps, or else it will not run
 ### Linux 
 1. docker
@@ -15,12 +16,14 @@ Please ensure you have the following installed before following the steps, or el
 
 ## How to install 
 
-### Linux
+### Linux/Windows
+Follow the steps below to set up the project
 1. open a terminal in the location you wish to have this project, and clone the repository with git\
 `git clone https://github.com/SouthHills/it237-project-dleitch00.git`
-2. cd into the directory `cd ./it237-project-dleitch00/`
+2. cd into the directory `cd it237-project-dleitch00/`
 3. change the contents of the example.env file with a good password `nano example.env`
-4. rename the example.env file to .env `mv example.env .env`
+4. For linux: rename the example.env file to .env `mv example.env .env`
+- For windows: use the command `rename example.env .env`
 5. run the command `docker compose up` and wait until you see `server | data source has been initialized`
 6. open a browser and navigate to `localhost:8080`
 7. here you will click `register user` 
@@ -29,12 +32,6 @@ Please ensure you have the following installed before following the steps, or el
 > enter 2 into `id` if you wish to be a regular user who can see only the plant assigned to them\
 with the username `nonadmin`
 9. Go back to the login page and enter your username and password
-
-
-
-
-### Windows 
-
 
 
 to close the docker containers use `docker compose down`
