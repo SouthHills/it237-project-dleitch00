@@ -1,4 +1,3 @@
-
 import {DataSource} from "typeorm";
 import {Component} from "./entities/Component.js";
 import {Employee} from "./entities/Employee.js";
@@ -21,6 +20,7 @@ export const AppDataSource = new DataSource({
     options: {
         encrypt: true,
         trustServerCertificate: true,
+        //only way i could make it work in docker
     },
     synchronize: false, // set to false in production
     logging: true,
