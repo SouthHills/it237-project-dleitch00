@@ -10,7 +10,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: 'Checkout GitHub Action'
-        uses: actions/checkout@dev
+        uses: actions/checkout@v6
+        with:
+            path: dev
 
       - name: 'Login via Azure CLI'
         uses: azure/login@v1
