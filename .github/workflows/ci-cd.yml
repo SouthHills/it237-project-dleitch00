@@ -1,6 +1,6 @@
 on:
   pull_request:
-    branches: ["dev"]
+    branches: ["test"]
 
 name: Linux_Container_Workflow
 
@@ -9,7 +9,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: 'Checkout GitHub Action'
-        uses: actions/checkout@test
+        uses: actions/checkout@dev
 
       - name: 'Login via Azure CLI'
         uses: azure/login@v1
