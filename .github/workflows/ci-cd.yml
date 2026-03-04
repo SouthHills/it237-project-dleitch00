@@ -1,11 +1,32 @@
 on:
   pull_request:
     branches: ["dev"]
+
 name: Linux_Container_Workflow
 
-
 jobs:
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: true
+    steps:
+      - name: 'Checkout Code'
+        uses: 'actions/checkout@v4'
+
+      - name: 'Setup Node.js'
+        uses: 'actions/setup-node@v4'
+        with:
+          node-version: '21'
+
+      - name: 'Install Dependencies'
+        run: npm ci
+
+      - name: 'Run Angular Unit Tests'
+        run: npx ng test --watch=false --browsers=ChromeHeadless
+
+
   build-and-deploy:
+    needs: test
     runs-on: ubuntu-latest
     steps:
       - name: 'Checkout GitHub Action'
@@ -47,7 +68,6 @@ jobs:
            SA_PASSWORD=${{ secrets.SA_PASSWORD }}
            DB_NAME=${{ secrets.DB_NAME }}
            DB_USER=${{ secrets.DB_USER }}
-
       - name: 'Deploy Client to Azure Container Instances'
         uses: 'azure/aci-deploy@v1'
         with:
