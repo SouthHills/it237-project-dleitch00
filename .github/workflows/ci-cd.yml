@@ -24,7 +24,7 @@ jobs:
 
       - name: 'Run Angular Unit Tests'
         working-directory: client
-        run: npx ng test --watch=false
+        run: npm ng test --watch=false
 
   build-and-deploy:
     needs: test
