@@ -41,6 +41,6 @@ to close the docker containers use `docker compose down`
 
 
 ## PLanned Features
-EXAMPLE 
+Below are features that are planned to be added at a future date
 - [ ] https://github.com/SouthHills/it237-project-dleitch00/issues/9
 
