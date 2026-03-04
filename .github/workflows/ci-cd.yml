@@ -1,7 +1,8 @@
-name: Linux_Container_Workflow
 on:
   pull_request:
     branches: ["test"]
+name: Linux_Container_Workflow
+
 
 jobs:
   build-and-deploy:
