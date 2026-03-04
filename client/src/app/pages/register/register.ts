@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import {EmployeeModel} from '../../models/employee.model';
 import {Router} from '@angular/router';
 import {EmployeeService} from '../../services/employee.service';
 import {FormsModule} from '@angular/forms';
