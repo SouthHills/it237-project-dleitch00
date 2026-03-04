@@ -19,7 +19,10 @@
     "jsonwebtoken": "^9.0.3",
     "mssql": "^12.2.0",
     "reflect-metadata": "^0.2.2",
-    "typeorm": "^0.3.28"
+    "typeorm": "^0.3.28",
+    "typescript": "^5.9.3",
+    "@types/node": "^25.0.6",
+    "ts-node": "^10.9.2",
   },
   "devDependencies": {
     "@types/bcrypt": "^6.0.0",
