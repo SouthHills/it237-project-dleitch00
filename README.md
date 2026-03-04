@@ -27,10 +27,16 @@ Follow the steps below to set up the project
 5. run the command `docker compose up` and wait until you see `server | data source has been initialized`
 6. open a browser and navigate to `localhost:8080`
 7. here you will click `register user` 
-8. enter 1 into `id` if you wish to be an admin who can see everything, with the username `admin` then make a password.
-> [!NOTE]
-> enter 2 into `id` if you wish to be a regular user who can see only the plant assigned to them\
-with the username `nonadmin`
+8. Reference the table below and enter the details accordingly, you will create the password, admins can see everything 
++----+------------+--------------+
+| id | username   | Admin status |
++----+------------+--------------+
+|  1 | bconway20  | Yes          |
+|  2 | spowell56  | No           |
+|  3 | anelson94  | No           |
+|  4 | wbradley77 | No           |
+|  5 | msmith73   | Yes          |
++----+------------+--------------+
 9. Go back to the login page and enter your username and password
 
 

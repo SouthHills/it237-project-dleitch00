@@ -55,4 +55,3 @@ jobs:
           registry-password: ${{ secrets.REGISTRY_PASSWORD }}
           name: aci-client
           location: 'west us 2'
-    
