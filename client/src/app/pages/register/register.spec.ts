@@ -5,6 +5,7 @@ import { Register } from './register';
 
 // Add this import for Vitest
 import { vi } from 'vitest';
+import {signal} from '@angular/core';
 
 describe('Register', () => {
   let component: Register;
@@ -60,4 +61,44 @@ describe('Register', () => {
     expect(employeeService.registerEmployee).toHaveBeenCalledWith(testEmployee);
     expect(router.navigate).toHaveBeenCalledWith(['/login']);
   });
+
+  it('should display an alert on registration failure', async () =>
+  {
+    // Arrange: set up employee data
+    const testEmployee = {
+      employeeID: 123,
+      employeeUsername: 'testuser',
+      employeePassword: 'testpass'
+    };
+    component.employee = {...testEmployee};
+
+    // Mock registerEmployee to return Observable with subscribe error
+    (employeeService.registerEmployee as any).mockReturnValue({
+      subscribe: ({error}: any) =>
+      {
+        error({message: 'Registration failed'}); // Simulate error response
+        return {
+          unsubscribe: () =>
+          {
+          }
+        };
+      }
+    });
+
+    // Spy on alert
+    const alertSpy = vi.spyOn(window, 'alert').mockImplementation(() =>
+    {
+    });
+
+    // Act
+    component.onRegister();
+
+    // Assert
+    expect(employeeService.registerEmployee).toHaveBeenCalledWith(testEmployee);
+    expect(alertSpy).toHaveBeenCalledWith('Registration failed. Please try again.');
+
+    // Clean up the spy
+    alertSpy.mockRestore();
+  });
+
 });
