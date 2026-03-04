@@ -6,3 +6,4 @@
 
 # allow only the example env file 
 !example.env
+!createDatabase.sql
