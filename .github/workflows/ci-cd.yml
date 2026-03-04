@@ -19,7 +19,7 @@ jobs:
           node-version: '21'
 
       - name: 'Install Dependencies'
-        run: npm ci
+        run: npm install
 
       - name: 'Run Angular Unit Tests'
         run: npx ng test --watch=false --browsers=ChromeHeadless
