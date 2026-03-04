@@ -28,15 +28,14 @@ Follow the steps below to set up the project
 6. open a browser and navigate to `localhost:8080`
 7. here you will click `register user` 
 8. Reference the table below and enter the details accordingly, you will create the password, admins can see everything 
-+----+------------+--------------+
 | id | username   | Admin status |
-+----+------------+--------------+
-|  1 | bconway20  | Yes          |
-|  2 | spowell56  | No           |
-|  3 | anelson94  | No           |
-|  4 | wbradley77 | No           |
-|  5 | msmith73   | Yes          |
-+----+------------+--------------+
+|----|------------|--------------|
+| 1  | bconway20  | Yes          |
+| 2  | spowell56  | No           |
+| 3  | anelson94  | No           |
+| 4  | wbradley77 | No           |
+| 5  | msmith73   | Yes          |
+
 9. Go back to the login page and enter your username and password
 
 
