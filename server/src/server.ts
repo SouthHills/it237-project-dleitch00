@@ -38,7 +38,10 @@ AppDataSource.initialize()
         console.error("Error during data source initialization: ", error);
     });
 
-
+app.get('/ping', (req, res) =>
+{
+    res.json({ message: 'pong' });
+});
 
 
 
