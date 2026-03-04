@@ -40,7 +40,7 @@ jobs:
           registry-login-server: ${{ secrets.REGISTRY_LOGIN_SERVER }}
           registry-username: ${{ secrets.REGISTRY_USERNAME }}
           registry-password: ${{ secrets.REGISTRY_PASSWORD }}
-          name: aci-server
+          name: aci-server-auto
           location: 'west us 2'
           secure-environment-variables: 'DB_HOST=${{ secrets.DB_HOST }} SA_PASSWORD=${{ secrets.SA_PASSWORD }} DB_NAME=${{ secrets.DB_NAME }} DB_USER=${{ secrets.DB_USER }}'
 
@@ -53,5 +53,5 @@ jobs:
           registry-login-server: ${{ secrets.REGISTRY_LOGIN_SERVER }}
           registry-username: ${{ secrets.REGISTRY_USERNAME }}
           registry-password: ${{ secrets.REGISTRY_PASSWORD }}
-          name: aci-client
+          name: aci-client-auto
           location: 'west us 2'
