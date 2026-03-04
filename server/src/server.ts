@@ -11,7 +11,7 @@ import productRoute from "./routes/productRoute.js";
 import vendorRoute from "./routes/vendorRoute.js";
 
 const app = express();
-const port: number = 3000;
+const port: number = parseInt(process.env.PORT || '3000', 10);
 
 const allowedOrigins = [
     'http://localhost:4200',
