@@ -10,7 +10,7 @@ RUN npm install
 
 COPY server/ .
 
-
+RUN npm install typescript
 RUN npx tsc
 
 EXPOSE 3000
