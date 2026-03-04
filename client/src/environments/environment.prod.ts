@@ -1,5 +1,5 @@
 export const environment = {
   production: true,
-  apiUrl: '20.72.235.93:3000'
+  apiUrl: 'lob-dbddhpfzbyfqhzar.westus3-01.azurewebsites.net'
 };
 
