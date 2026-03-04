@@ -3,10 +3,9 @@
   "version": "1.0.0",
   "description": "",
   "scripts": {
-    "start": "node dist/server.js",
-    "dev": "node --loader ts-node/esm src/server.ts",
-    "build": "tsc"
-  },
+  "build": "tsc",
+  "start": "node dist/server.js"
+},
   "keywords": [],
   "author": "",
   "license": "ISC",
