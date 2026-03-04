@@ -50,12 +50,14 @@ export class ProductList {
   {
      if (this.idSort)
      {
-      const sortedProducts = [...this.products()].sort((a, b) => b.productID - a.productID);
+      const sortedProducts = [...this.products()]
+        .sort((a, b) => b.productID - a.productID);
       this.products.set(sortedProducts);
       this.idSort = false;
       return;
      }
-      const sortedProducts = [...this.products()].sort((a, b) => a.productID - b.productID);
+      const sortedProducts = [...this.products()]
+        .sort((a, b) => a.productID - b.productID);
       this.idSort = true;
       this.products.set(sortedProducts);
   }
