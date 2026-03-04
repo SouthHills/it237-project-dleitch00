@@ -43,6 +43,7 @@ export class Login {
       },
       error: (err) =>
       {
+        alert('Login failed. Please check your username and password and try again.');
         this.errorMessage = 'Login failed: Invalid username or password';
       },
     });
