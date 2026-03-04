@@ -1,6 +1,8 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { Spinner } from './spinner';
+import { vi } from 'vitest';
+
 
 describe('Spinner', () => {
   let component: Spinner;
@@ -14,10 +16,16 @@ describe('Spinner', () => {
 
     fixture = TestBed.createComponent(Spinner);
     component = fixture.componentInstance;
-    await fixture.whenStable();
   });
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
+  it('should init when done loading (isLoading = true)', () => {
+    expect(component.isLoading()).toBeTruthy();
+  });
+
+  it('should init when done loading (isLoading = false)', () => {
+    vi.useFakeTimers();
+    component.ngOnInit();
+    vi.advanceTimersByTime(500);
+    expect(component.isLoading()).toBe(false);
   });
 });

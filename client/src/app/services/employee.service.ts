@@ -2,14 +2,14 @@ import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {EmployeeModel} from "../models/employee.model";
-import {ComponentModel} from '../models/component.model';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root',
 })
 export class EmployeeService
 {
-  private apiUrl = 'http://localhost:3000/employees';
+  private apiUrl = environment.apiUrl + '/employees';
 
   constructor(private http: HttpClient) {}
 
@@ -92,4 +92,3 @@ export class EmployeeService
   }
 
 }
-
