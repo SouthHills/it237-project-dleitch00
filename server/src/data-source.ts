@@ -6,7 +6,9 @@ import {Product} from "./entities/Product.js";
 import {Vendor} from "./entities/Vendor.js";
 import {ProductionLine} from "./entities/ProductionLine.js";
 import {Blueprint} from "./entities/Blueprint.js";
+import dotenv from "dotenv";
 
+dotenv.config();
 
 
 export const AppDataSource = new DataSource({
