@@ -2,14 +2,13 @@ import { Injectable } from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {PlantModel} from '../models/plant.model';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root',
 })
 export class PlantService {
-
-  private apiUrl = 'http://localhost:3000/plants';
-
+  private apiUrl = environment.apiUrl + '/plants';
 
   constructor(private http: HttpClient) {}
 
@@ -54,7 +53,4 @@ export class PlantService {
 
     return this.http.delete<void>(`${this.apiUrl}/${escapedPlantID}`, this.getAuthHeaders());
   }
-
-
-
 }
