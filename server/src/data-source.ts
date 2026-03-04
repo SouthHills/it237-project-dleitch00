@@ -8,7 +8,7 @@ import {ProductionLine} from "./entities/ProductionLine.js";
 import {Blueprint} from "./entities/Blueprint.js";
 
 import {loadEnvFile} from 'node:process';
-loadEnvFile('./.env');
+loadEnvFile('../.env');
 
 export const AppDataSource = new DataSource({
     type: "mssql",
