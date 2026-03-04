@@ -11,9 +11,23 @@ import productRoute from "./routes/productRoute.js";
 import vendorRoute from "./routes/vendorRoute.js";
 
 const app = express();
-const port: number = 3000;
+const port: number = parseInt(process.env.PORT || '3000', 10);
 
-app.use(cors());
+const allowedOrigins = [
+    'http://localhost:4200',
+    'https://lob-dbddhpfzbyfqhzar.westus3-01.azurewebsites.net'
+];
+
+app.use(cors({
+    origin: (origin, callback) => {
+        if (!origin || allowedOrigins.includes(origin)) {
+            callback(null, true);
+        } else {
+            callback(new Error(`CORS policy blocked origin: ${origin}`));
+        }
+    },
+    credentials: true
+}));
 app.use(bodyParser.json());
 app.use(blueprintRoute);
 app.use(componentRoute);
