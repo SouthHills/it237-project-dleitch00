@@ -1,0 +1,152 @@
+<app-spinner />
+<main class="container">
+  @if (product() || isNewProduct()) {
+    @if (isNewProduct()) {
+      <h1 class="mb-4">New Product</h1>
+    } @else {
+      <h1 class="mb-4">
+        Product Details: {{ product()!.productName }}
+      </h1>
+    }
+
+    <form>
+      <div class="card w-75 mx-auto">
+        <div class="card-header">
+          <div class="row ">
+            <div class="col-3">
+              <label for="product-id" class="form-label">Product ID</label>
+              <input class="form-control" id="product-id"
+                     name="productID"
+                     [(ngModel)]="modifiedProduct()!.productID"/>
+
+            </div>
+
+          </div>
+
+        </div>
+        <div class="row card-body">
+          <div class="col">
+            <label for="product-name" class="form-label">Product Name</label>
+            <input class="form-control" id="product-name"
+                   name="name"
+                   [(ngModel)]="modifiedProduct()!.productName"/>
+          </div>
+          <div class="col">
+            <label for="product-price" class="form-label">Price</label>
+            <input class="form-control" id="product-price"
+                   name="price" type="number" step=".01" min="0"
+                   [(ngModel)]="modifiedProduct()!.productPrice"/>
+          </div>
+          <div class="col-2">
+            <label for="product-produced" class="form-label">Product Produced</label>
+            <select class="form-select" id="product-produced"
+                   name="produced"
+                   [(ngModel)]="modifiedProduct()!.productProduced">
+              <option [ngValue]="true">Yes</option>
+              <option [ngValue]="false">No</option>
+            </select>
+          </div>
+
+        </div>
+        <div class="row card-body">
+          <div class="col">
+            <label for="product-description" class="form-label">Product Description</label>
+            <textarea class="form-control" id="product-description"
+                   name="description"
+                   [(ngModel)]="modifiedProduct()!.productDescription">
+            </textarea>
+          </div>
+
+
+
+
+        </div>
+
+        <div class="card-footer">
+          <h3 class="text-body">Actions</h3>
+          <div>
+            <button type="button"
+                    class="btn btn-success m-2"
+                    (click)="saveChanges()">{{ isNewProduct() ? 'Create Product' : 'Save Changes' }}
+            </button>
+
+            @if (!isNewProduct()) {
+              <button type="button"
+                      class="btn btn-danger m-2"
+                      (click)="deleteProduct()">
+                Delete Product
+              </button>
+            }
+
+            <button type="button" class="btn btn-warning m-2" (click)="discardChanges()">Discard Changes</button>
+
+            <a routerLink="/products" class="btn btn-secondary m-2">
+              Go Back
+            </a>
+          </div>
+
+
+
+        </div>
+      </div>
+    </form>
+  } @else if (errorMessage()) {
+    <p class="text-danger">{{ errorMessage() }}</p>
+  } @else {
+    <p>Loading product details</p>
+  }
+
+  <section id="blueprint-section">
+    <div class="row">
+      <div class="col">
+        @if (components()) {
+          <table class="table table-striped text-center table-bordered w-75 mx-auto mt-3 table-rounded">
+            <thead>
+            <tr>
+              <th colspan="4" class="fs-2">Blueprint Components</th>
+            </tr>
+            <tr>
+              <th>Component Name</th>
+              <th>Component Description</th>
+              <th>Quantity</th>
+
+            </tr>
+            </thead>
+            <tbody>
+              @for (component of blueprintForCurrentProduct(); track component.componentID) {
+                <tr (click)="viewBlueprintDetails(component.componentID)">
+                  <td>{{ component.componentName }}</td>
+                  <td>{{ component.componentDescription }}</td>
+                  <td>{{ amountOfComponentInProduct(component.componentID) }}</td>
+                </tr>
+              } @empty {
+                <tr>
+                  <td colspan="4">
+                    No Blueprints Found
+                  </td>
+                </tr>
+              }
+            </tbody>
+          </table>
+        }
+
+        <div>
+        </div>
+      </div>
+    </div>
+
+  </section>
+
+</main>
+
+<div class="toast-container position-fixed bottom-0 end-0 p-3">
+  <div id="toast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+    <div class="toast-header">
+      <strong class="me-auto">{{ toastTitle() }}</strong>
+      <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+    </div>
+    <div class="toast-body">
+      {{ toastMessage() }}
+    </div>
+  </div>
+</div>

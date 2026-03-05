@@ -1,0 +1,106 @@
+<main class="container">
+  <h1 class="mb-4 header">Dashboard</h1>
+
+  <div class="card mb-4">
+    <div class="card-header">
+      <h2 class="card-title">Welcome to the Dashboard!</h2>
+    </div>
+    <div class="card-body">
+      <p class="card-text">This is your dashboard where you can manage your plants, employees, products, and more.
+        Use the navigation menu to access different sections of the application.
+      </p>
+    </div>
+  </div>
+
+  <section id="plant-section" class="text-center mx-auto">
+    <h2 class="mb-3 header">Plants</h2>
+    <div id="plant-carousel" class="carousel slide w-75 mx-auto" data-bs-ride="carousel">
+      <div class="carousel-inner">
+      @for (plant of plants(); track plant.plantID; let i = $index) {
+        <div (click)="viewPlantDetails(plant.plantID)" [class]="i === 0 ? 'carousel-item active card' : 'carousel-item card'">
+          <div class="card-header">
+            <h3 class="card-title">{{plant.plantName}}</h3>
+          </div>
+          <div class="card-body">
+            <p class="card-text">{{ plant.plantCity }}</p>
+          </div>
+        </div>
+      }
+      </div>
+      <button class="carousel-control-prev" type="button" data-bs-target="#plant-carousel" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon prev" aria-hidden="true"></span>
+        <span class="visually-hidden">Previous</span>
+      </button>
+      <button class="carousel-control-next" type="button" data-bs-target="#plant-carousel" data-bs-slide="next">
+        <span class="carousel-control-next-icon next" aria-hidden="true"></span>
+        <span class="visually-hidden">Next</span>
+      </button>
+    </div>
+
+  </section>
+
+  <section id="tables-section" class="text-center mx-auto">
+    <h2 class="mb-3 header">Quick Access</h2>
+    <div class="d-flex justify-content-center gap-4 row">
+
+      <div class="col">
+        <div class="card h-100 p-3">
+          <div class="card-header">
+            <h2 class="card-title text-uppercase">Products</h2>
+          </div>
+          <div class="card-body">
+            <p class="card-text">View and manage all products in the system.</p>
+            <button class="btn btn-primary" (click)="navigateTo('/products')">Go to Products</button>
+
+          </div>
+        </div>
+      </div>
+      <div class="col">
+        <div class="card h-100 p-3">
+          <div class="card-header">
+            <h2 class="card-title text-uppercase">Vendors</h2>
+          </div>
+          <div class="card-body">
+            <p class="card-text">View and manage all vendors in the system.</p>
+            <button class="btn btn-primary" (click)="navigateTo('/vendors')">Go to Vendors</button>
+
+          </div>
+        </div>
+
+
+      </div>
+
+      <div class="col">
+        <div class="card h-100 p-3">
+          <div class="card-header">
+            <h2 class="card-title text-uppercase">Components</h2>
+          </div>
+          <div class="card-body">
+            <p class="card-text">View and manage all components in the system.</p>
+            <button class="btn btn-primary" (click)="navigateTo('/components')">Go to Products</button>
+
+          </div>
+        </div>
+
+
+      </div>
+      <div class="col">
+        <div class="card h-100 p-3">
+          <div class="card-header">
+            <h2 class="card-title text-uppercase">Employees</h2>
+          </div>
+          <div class="card-body">
+            <p class="card-text">View and manage all employees in the system.</p>
+            <button class="btn btn-primary" (click)="navigateTo('/employees')">Go to Employees</button>
+
+          </div>
+        </div>
+
+
+      </div>
+
+    </div>
+
+  </section>
+
+</main>

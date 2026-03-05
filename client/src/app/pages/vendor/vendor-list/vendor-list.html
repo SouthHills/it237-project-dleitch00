@@ -1,0 +1,54 @@
+<app-spinner />
+
+@if(errorMessage())
+{
+  <p class="text-danger">{{ errorMessage() }}</p>
+}
+@else
+{
+  <button class="btn btn-primary btn-sm float-end me-3 mb-2 mt-3"
+          (click)="viewVendorDetails(-1)">
+    Add Vendor
+  </button>
+
+  <table class="table table-striped text-center table-bordered w-75 mx-auto mt-3 table-rounded">
+    <thead>
+    <tr>
+      <th colspan="7" class="fs-2">Vendors</th>
+    </tr>
+    <tr>
+      <th (click)="sortID()">ID</th>
+      <th (click)="sortName()">Name</th>
+      <th (click)="sortSpecialization()">Specialization</th>
+      <th (click)="sortNation()">Nation</th>
+      <th (click)="sortCity()">City</th>
+      <th (click)="sortStreet()">Street</th>
+      <th (click)="sortZip()">Zip Code</th>
+    </tr>
+    </thead>
+    <tbody>
+      @for (vendor of vendors() ; track vendor.vendorID)
+      {
+        <tr (click)="viewVendorDetails(vendor.vendorID)">
+          <td>{{ vendor.vendorID }}</td>
+          <td>{{ vendor.vendorName }}</td>
+          <td>{{ vendor.vendorSpecialization}}</td>
+          <td>{{ vendor.vendorHqNation}}</td>
+          <td>{{ vendor.vendorHqCity}}</td>
+          <td>{{ vendor.vendorHqStreet}}</td>
+          <td>{{ vendor.vendorHqZIP}}</td>
+        </tr>
+      }
+      @empty
+      {
+        <tr>
+          <td colspan="8">
+            No Vendors Found
+          </td>
+        </tr>
+      }
+    </tbody>
+  </table>
+}
+
+

@@ -1,0 +1,62 @@
+ <app-spinner />
+
+@if(errorMessage())
+{
+  <p class="text-danger">{{ errorMessage() }}</p>
+}
+@else
+{
+  <button class="btn btn-primary btn-sm float-end me-3 mb-2 mt-3"
+          (click)="viewEmployeeDetails(-1)">
+    Add Employee
+  </button>
+
+  <table class="table table-bordered text-center w-75 mx-auto mt-3 table-rounded">
+    <thead>
+    <tr>
+      <th colspan="11" class="fs-2">Employees</th>
+    </tr>
+    <tr>
+      <th (click)="sortID()">ID</th>
+      <th (click)="sortFirstName()">First Name</th>
+      <th (click)="sortLastName()">Last Name</th>
+      <th (click)="sortInitial()">Middle Initial</th>
+      <th (click)="sortJob()">Job Title</th>
+      <th (click)="sortSalary()">Salary</th>
+      <th (click)="sortDOB()">Date of Birth</th>
+      <th (click)="sortActive()">Active</th>
+      <th (click)="sortUsername()">Username</th>
+      <th (click)="sortPlantID()">Plant ID</th>
+      <th (click)="sortAdmin()">Admin</th>
+    </tr>
+    </thead>
+    <tbody>
+      @for (employee of employees() ; track employee.employeeID)
+      {
+        <tr (click)="viewEmployeeDetails(employee.employeeID)">
+          <td>{{ employee.employeeID }}</td>
+          <td>{{ employee.employeeFirstName }}</td>
+          <td>{{ employee.employeeLastName}}</td>
+          <td>{{ employee.employeeMiddleInitial}}</td>
+          <td>{{ employee.employeeJobTitle}}</td>
+          <td>{{ employee.employeeSalary | currency}}</td>
+          <td>{{ employee.employeeBirthday}}</td>
+          <td>{{ employee.employeeStatus}}</td>
+          <td>{{ employee.employeeUsername}}</td>
+          <td>{{ employee.plantID}}</td>
+          <td>{{ employee.employeeIsAdmin}}</td>
+        </tr>
+      }
+      @empty
+      {
+        <tr>
+          <td colspan="11">
+            No Employees Found
+          </td>
+        </tr>
+      }
+    </tbody>
+  </table>
+}
+
+

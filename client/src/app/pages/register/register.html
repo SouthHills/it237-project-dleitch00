@@ -1,0 +1,41 @@
+<div class="container mb-5 mt-5">
+  <div class="card mb-5 w-50 mx-auto p-3">
+    <div class="card-header">
+      <h1 class="card-title">Register</h1>
+    </div>
+    <div class="card-body">
+      <form class="row gap-3">
+
+        <div class="col-12">
+          <label for="register-id" class="form-label">ID</label>
+          <input class="form-control" id="register-id"
+                 name="id" type="number" [(ngModel)]="employee.employeeID"/>
+        </div>
+
+        <div class="col-12">
+          <label for="register-username" class="form-label">Username</label>
+          <input class="form-control" id="register-username"
+                 name="username" type="text" [(ngModel)]="employee.employeeUsername"/>
+        </div>
+
+        <div class="col-12">
+          <label for="register-password" class="form-label">Password</label>
+          <input class="form-control" id="register-password"
+                 name="password" type="password" [(ngModel)]="employee.employeePassword"/>
+        </div>
+
+        <hr class="my-4"/>
+        <h3 class="header text-center">Actions</h3>
+        <button type="button" class="btn btn-secondary w-25 mx-auto"
+                (click)="redirectToLogin()">Back to Login
+        </button>
+
+        <button type="button" class="btn btn-primary w-25 mx-auto"
+                (click)="onRegister()">Register
+        </button>
+      </form>
+    </div>
+
+
+  </div>
+</div>

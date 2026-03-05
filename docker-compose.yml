@@ -1,0 +1,52 @@
+services:
+  database:
+    container_name: database
+    build:
+      context: .
+      dockerfile: database-dockerfile
+    restart: unless-stopped
+    env_file: ".env"
+    environment:
+      ACCEPT_EULA: "Y"
+      SA_PASSWORD: ${SA_PASSWORD}
+      MSSQL_PID: Express
+    ports:
+      - "1433:1433"
+    volumes:
+      - database_volume:/var/opt/mssql
+    healthcheck:
+      test: ["CMD-SHELL", "/opt/mssql-tools18/bin/sqlcmd -C -S localhost -U \"$DB_USER\" -P \"$SA_PASSWORD\" -Q \"SELECT 1\" || exit 1"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+      start_period: 25s 
+
+  server:
+    container_name: server
+    env_file: ".env"
+    build:
+      context: .
+      dockerfile: server-dockerfile
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+    depends_on:
+      database:
+        condition: service_healthy
+    environment:
+      DB_HOST: ${DB_HOST}
+      DB_USER: ${DB_USER}
+      DB_PASSWORD: ${SA_PASSWORD}
+      DB_NAME: ${DB_NAME}
+
+  client:
+    container_name: client
+    build:
+      context: .
+      dockerfile: client-dockerfile
+    restart: unless-stopped
+    ports:
+      - "80:80"
+
+volumes:
+  database_volume:

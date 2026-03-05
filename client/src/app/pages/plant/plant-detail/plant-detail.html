@@ -1,0 +1,212 @@
+<app-spinner />
+<main class="container">
+  @if (plant() || isNewPlant())
+  {
+    @if (isNewPlant())
+    {
+      <h1 class="mb-4">New Plant</h1>
+    }
+    @else
+    {
+      <h1 class="mb-4">
+        Plant Details: {{ plant()!.plantName }}
+      </h1>
+    }
+
+    <form>
+      <div class="card">
+        <div class="card-header">
+          <div class="row">
+            <div class="col">
+
+              <div class="col-4">
+                <label for="plant-id" class="card-title">Plant ID</label>
+                <input class="form-control" id="plant-id"
+                       name="plantID"
+                       [(ngModel)]="modifiedPlant()!.plantID"/>
+              </div>
+            </div>
+            <div class="col">
+                <label for="plant-name" class="card-title">Name</label>
+                <input class="form-control" id="plant-name"
+                       name="name"
+                       [(ngModel)]="modifiedPlant()!.plantName"/>
+
+            </div>
+
+          </div>
+
+        </div>
+        <div class="row card-body">
+          <div class="col">
+            <label for="plant-nation" class="form-label">Nation</label>
+            <input class="form-control" id="plant-nation"
+                   name="nation"
+                   [(ngModel)]="modifiedPlant()!.plantNation"/>
+          </div>
+          <div class="col">
+            <label for="plant-city" class="form-label">City</label>
+            <input class="form-control" id="plant-city"
+                   name="city"
+                   [(ngModel)]="modifiedPlant()!.plantCity"/>
+          </div>
+          <div class="col">
+            <label for="plant-street" class="form-label">Street</label>
+            <input class="form-control" id="plant-street"
+                   name="street"
+                   [(ngModel)]="modifiedPlant()!.plantStreet"/>
+          </div>
+          <div class="col">
+            <label for="plant-zip" class="form-label">Zip Code</label>
+            <input class="form-control" id="plant-zip"
+                   name="zip"
+                   [(ngModel)]="modifiedPlant()!.plantZIP"/>
+          </div>
+          <div class="col">
+            <label for="plant-status" class="form-label">Status</label>
+            <select class="form-select" id="plant-status"
+                   name="status"
+                    [(ngModel)]="modifiedPlant()!.plantStatus">
+              <option [ngValue]="'Y'">Active</option>
+              <option [ngValue]="'N'">Inactive</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="card-footer">
+          <h3 class="text-black">Actions</h3>
+          <button
+            class="btn btn-success m-2"
+            (click)="saveChanges()">
+            {{ isNewPlant() ? 'Create Plant' : 'Save Changes' }}
+          </button>
+          @if (!isNewPlant()) {
+            <button type="button"
+                    class="btn btn-danger m-2"
+                    (click)="deletePlant()">
+              Delete Plant
+            </button>
+          }
+
+          <button type="button"
+                  class="btn btn-secondary m-2"
+                  (click)="discardChanges()">
+            Discard Changes
+          </button>
+
+          <a routerLink="/plants" class="btn btn-secondary m-2">
+            Back to Plant List
+          </a>
+
+        </div>
+      </div>
+    </form>
+  }
+  @else if (errorMessage())
+  {
+    <p class="text-danger">{{ errorMessage() }}</p>
+  }
+  @else
+  {
+    <p>Loading plant details</p>
+  }
+
+  <div class="row">
+    <div class="col">
+      @if (employees())
+      {
+        <table class="table table-striped text-center table-bordered w-75 mx-auto mt-3 table-rounded">
+          <thead>
+          <tr>
+            <th colspan="4" class="fs-2">Employees</th>
+          </tr>
+          <tr>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Middle Initial</th>
+            <th>Job Title</th>
+          </tr>
+          </thead>
+          <tbody>
+            @for (employee of getEmployeeForCurrentPlant() ; track employee.employeeID)
+            {
+              <tr>
+                <td>{{ employee.employeeFirstName }}</td>
+                <td>{{ employee.employeeLastName}}</td>
+                <td>{{ employee.employeeMiddleInitial}}</td>
+                <td>{{ employee.employeeJobTitle}}</td>
+              </tr>
+            }
+            @empty
+            {
+              <tr>
+                <td colspan="4">
+                  No Employees Found
+                </td>
+              </tr>
+            }
+          </tbody>
+        </table>
+      }
+
+
+
+    </div>
+    <div class="col">
+      @if (products())
+      {
+        <table class="table table-striped text-center table-bordered w-75 mx-auto mt-3 table-rounded">
+          <thead>
+          <tr>
+            <th colspan="5" class="fs-2">Products</th>
+          </tr>
+          <tr>
+            <th>Name</th>
+            <th>Description</th>
+            <th>Price</th>
+            <th>Quantity</th>
+            <th>Minimum</th>
+          </tr>
+          </thead>
+          <tbody>
+            @for (product of getProductForCurrentPlant() ; track product.productID)
+            {
+              <tr (click)="viewProductDetails(product.productID)">
+                <td>{{ product.productName }}</td>
+                <td>{{ product.productDescription}}</td>
+                <td>{{ product.productPrice | currency}}</td>
+                <td>{{ getProductQuantity(product.productID)}}</td>
+                <td>{{ getMinimumQuantity(product.productID)}}</td>
+              </tr>
+            }
+            @empty
+            {
+              <tr>
+                <td colspan="4">
+                  No Products Found
+                </td>
+              </tr>
+            }
+          </tbody>
+        </table>
+      }
+
+
+    </div>
+
+
+  </div>
+
+</main>
+
+<div class="toast-container position-fixed bottom-0 end-0 p-3">
+  <div id="toast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+    <div class="toast-header">
+      <strong class="me-auto">{{ toastTitle() }}</strong>
+      <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+    </div>
+    <div class="toast-body">
+      {{ toastMessage() }}
+    </div>
+  </div>
+</div>

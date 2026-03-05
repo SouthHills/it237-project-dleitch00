@@ -1,0 +1,54 @@
+<app-spinner />
+
+@if(errorMessage())
+{
+  <p class="text-danger">{{ errorMessage() }}</p>
+}
+@else
+{
+  <button class="btn btn-primary btn-sm float-end me-3 mb-2 mt-3"
+          (click)="viewPlantDetails(-1)">
+    Add Plant
+  </button>
+
+  <table class="table table-striped text-center table-bordered w-75 mx-auto mt-3 table-rounded">
+    <thead>
+    <tr>
+      <th colspan="7" class="fs-2">Plants</th>
+    </tr>
+    <tr>
+      <th (click)="sortID()">ID</th>
+      <th (click)="sortName()">Name</th>
+      <th (click)="sortNation()">Nation</th>
+      <th (click)="sortCity()">City</th>
+      <th (click)="sortStreet()">Street</th>
+      <th (click)="sortZip()">Zip Code</th>
+      <th (click)="sortStatus()">Status</th>
+    </tr>
+    </thead>
+    <tbody>
+      @for (plant of plants() ; track plant.plantID)
+      {
+        <tr (click)="viewPlantDetails(plant.plantID)">
+          <td>{{ plant.plantID }}</td>
+          <td>{{ plant.plantName }}</td>
+          <td>{{ plant.plantNation}}</td>
+          <td>{{ plant.plantCity}}</td>
+          <td>{{ plant.plantStreet}}</td>
+          <td>{{ plant.plantZIP}}</td>
+          <td>{{ plant.plantStatus}}</td>
+        </tr>
+      }
+      @empty
+      {
+        <tr>
+          <td colspan="8">
+            No Plants Found
+          </td>
+        </tr>
+      }
+    </tbody>
+  </table>
+}
+
+

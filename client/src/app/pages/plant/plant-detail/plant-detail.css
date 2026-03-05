@@ -1,0 +1,32 @@
+table {
+  width: 100%;
+  border-collapse: collapse;
+  max-height: 1000px;
+}
+.table-rounded
+{
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+thead th {
+  background-color: #294659;
+  color: white;
+  font-weight: 600;
+}
+
+tbody td {
+  padding: 1rem;
+  vertical-align: middle;
+}
+
+tbody tr:hover {
+  cursor: pointer;
+}
+
+
+
+
+
+
+

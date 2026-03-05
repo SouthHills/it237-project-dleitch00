@@ -1,0 +1,12 @@
+<app-header />
+@if (isAdmin) {
+  <app-navbar />
+}
+@else if (currentPlantID)
+{
+  <app-user-navbar />
+}
+
+<router-outlet />
+
+<app-footer />
