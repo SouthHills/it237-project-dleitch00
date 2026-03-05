@@ -25,12 +25,12 @@ Follow the steps below to set up the project
 4. For linux: rename the example.env file to .env `mv example.env .env`
     - For windows: use the command `rename example.env .env`
 5. run the command `docker compose up` and wait until you see `server | data source has been initialized`
-6. open a browser and navigate to `localhost:8080`
+6. open a browser and navigate to `localhost:80`
 7. here you will click `register user` 
-8. enter 1 into `id` if you wish to be an admin who can see everything, with the username `admin` then make a password.
-> [!NOTE]
-> enter 2 into `id` if you wish to be a regular user who can see only the plant assigned to them\
-with the username `nonadmin`
+8. Reference the table below and enter the details accordingly, you will create the password, admins can see everything
+
+![table of users](table.png)
+
 9. Go back to the login page and enter your username and password
 
 
@@ -41,6 +41,6 @@ to close the docker containers use `docker compose down`
 
 
 ## PLanned Features
-EXAMPLE 
+Below are features that are planned to be added at a future date
 - [ ] https://github.com/SouthHills/it237-project-dleitch00/issues/9
 
