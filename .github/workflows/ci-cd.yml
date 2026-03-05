@@ -1,6 +1,6 @@
 on:
   pull_request:
-    branches: ["main"]
+    branches: ["dev"]
 
 name: Linux_Container_Workflow
 
@@ -83,5 +83,6 @@ jobs:
           registry-password: ${{ secrets.REGISTRY_PASSWORD }}
           name: aci-client-auto
           location: 'westus2'
+
 
 
