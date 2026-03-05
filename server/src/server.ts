@@ -26,14 +26,8 @@ app.use(cors({
             callback(new Error(`CORS policy blocked origin: ${origin}`));
         }
     },
-    credentials: true,
-    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-    allowedHeaders: ['Content-Type', 'Authorization'],
-    exposedHeaders: ['Content-Type', 'Authorization'],
-    preflightContinue: false,
-    optionsSuccessStatus: 204
+    credentials: true
 }));
-
 app.use(bodyParser.json());
 app.use(blueprintRoute);
 app.use(componentRoute);
