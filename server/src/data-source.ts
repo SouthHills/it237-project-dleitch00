@@ -6,6 +6,14 @@ import {Product} from "./entities/Product.js";
 import {Vendor} from "./entities/Vendor.js";
 import {ProductionLine} from "./entities/ProductionLine.js";
 import {Blueprint} from "./entities/Blueprint.js";
+import dotenv from "dotenv";
+import {existsSync} from "fs";
+
+// Only load .env file if it exists (for local development)
+if (existsSync('./.env')) {
+    dotenv.config();
+}
+
 
 export const AppDataSource = new DataSource({
     type: "mssql",
