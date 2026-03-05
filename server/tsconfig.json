@@ -8,6 +8,8 @@
     "strict": true,
     "skipLibCheck": true,
     "experimentalDecorators": true,
-
-  }
+    "outDir": "./dist",       
+    "rootDir": "./src"         
+  },
+  "include": ["src/**/*"]     
 }

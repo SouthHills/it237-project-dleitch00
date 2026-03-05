@@ -1,16 +1,38 @@
 on:
   pull_request:
-    branches: ["dev"]
+    branches: ["main"]
+
 name: Linux_Container_Workflow
 
-
 jobs:
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: true
+    steps:
+      - name: 'Checkout Code'
+        uses: 'actions/checkout@v4'
+
+      - name: 'Setup Node.js'
+        uses: 'actions/setup-node@v4'
+        with:
+          node-version: '20.19.0'
+
+      - name: 'Install Dependencies'
+        working-directory: client
+        run: npm install
+
+      - name: 'Run Angular Unit Tests'
+        working-directory: client
+        run: npm run ng test --watch=false
+
   build-and-deploy:
+    needs: test
     runs-on: ubuntu-latest
     steps:
       - name: 'Checkout GitHub Action'
         uses: 'actions/checkout@v4'
-        
+
       - name: 'Login via Azure CLI'
         uses: 'azure/login@v1'
         with:
@@ -23,11 +45,13 @@ jobs:
           username: ${{ secrets.REGISTRY_USERNAME }}
           password: ${{ secrets.REGISTRY_PASSWORD }}
 
-      - run: |
+      - name: 'Build and Push Server Image'
+        run: |
           docker build . -f server-dockerfile -t ${{ secrets.REGISTRY_LOGIN_SERVER }}/server:${{ github.sha }}
           docker push ${{ secrets.REGISTRY_LOGIN_SERVER }}/server:${{ github.sha }}
 
-      - run: |
+      - name: 'Build and Push Client Image'
+        run: |
           docker build . -f client-dockerfile -t ${{ secrets.REGISTRY_LOGIN_SERVER }}/client:${{ github.sha }}
           docker push ${{ secrets.REGISTRY_LOGIN_SERVER }}/client:${{ github.sha }}
 
@@ -40,9 +64,13 @@ jobs:
           registry-login-server: ${{ secrets.REGISTRY_LOGIN_SERVER }}
           registry-username: ${{ secrets.REGISTRY_USERNAME }}
           registry-password: ${{ secrets.REGISTRY_PASSWORD }}
-          name: aci-server
-          location: 'west us 2'
-          secure-environment-variables: 'DB_HOST=${{ secrets.DB_HOST }} SA_PASSWORD=${{ secrets.SA_PASSWORD }} DB_NAME=${{ secrets.DB_NAME }} DB_USER=${{ secrets.DB_USER }}'
+          name: aci-server-auto
+          location: 'westus2'
+          secure-environment-variables: |
+            DB_HOST=${{ secrets.DB_HOST }}
+            SA_PASSWORD=${{ secrets.SA_PASSWORD }}
+            DB_NAME=${{ secrets.DB_NAME }}
+            DB_USER=${{ secrets.DB_USER }}
 
       - name: 'Deploy Client to Azure Container Instances'
         uses: 'azure/aci-deploy@v1'
@@ -53,6 +81,19 @@ jobs:
           registry-login-server: ${{ secrets.REGISTRY_LOGIN_SERVER }}
           registry-username: ${{ secrets.REGISTRY_USERNAME }}
           registry-password: ${{ secrets.REGISTRY_PASSWORD }}
-          name: aci-client
-          location: 'west us 2'
-    
+          name: aci-client-auto
+          location: 'westus2'
+
+      - name: 'Deploy Client to Web App'
+        uses: 'azure/webapps-deploy@v2'
+        with:
+          app-name: 'LOB'
+          publish-profile: ${{ secrets.CLIENTAZURE }}
+          images: '${{ secrets.REGISTRY_LOGIN_SERVER }}/client:${{ github.sha }}'
+
+      - name: 'Deploy Server to Web App'
+        uses: 'azure/webapps-deploy@v2'
+        with:
+          app-name: 'LOB-Backend'
+          publish-profile: ${{ secrets.SERVERAZURE }}
+          images: '${{ secrets.REGISTRY_LOGIN_SERVER }}/server:${{ github.sha }}'
