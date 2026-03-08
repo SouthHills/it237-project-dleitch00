@@ -7,8 +7,36 @@ import {Vendor} from "./entities/Vendor.js";
 import {ProductionLine} from "./entities/ProductionLine.js";
 import {Blueprint} from "./entities/Blueprint.js";
 import dotenv from "dotenv";
+import {existsSync} from "fs";
+import {fileURLToPath} from "url";
+import {dirname, resolve} from "path";
 
-dotenv.config();
+// Get the directory name in ES modules
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
+
+// Try multiple possible .env locations for local development
+const possibleEnvPaths = [
+    './.env',                                    // Current working directory
+    resolve(__dirname, '../../.env'),            // Server root from src/
+    resolve(__dirname, '../.env'),               // One level up from src/
+    resolve(process.cwd(), '.env')               // Process working directory
+];
+
+// Only load .env file if it exists (for local development)
+let envLoaded = false;
+for (const envPath of possibleEnvPaths) {
+    if (existsSync(envPath)) {
+        dotenv.config({ path: envPath });
+        console.log(`Loaded environment variables from: ${envPath}`);
+        envLoaded = true;
+        break;
+    }
+}
+
+if (!envLoaded) {
+    console.log('No .env file found, using environment variables from system/container');
+}
 
 
 export const AppDataSource = new DataSource({
